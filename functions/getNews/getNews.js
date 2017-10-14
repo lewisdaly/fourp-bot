@@ -34,37 +34,14 @@ module.exports = functions.https.onRequest((req, res) => {
 
 
 /**
- *
+ * This is a pretty basic message format for now. It would be good to make prettier later on.
+ * Not sure how much we can do without having buttons (seems to kill chatfuel)
  */
 const formatMessage = (stories) => {
-  // return {
-  //   messages: stories
-  // };
-
 
   return {
-   "messages": [
-      {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"list",
-            "top_element_style":"large",
-            "elements":[
-              {
-                "title":"Chatfuel Rockets T-Shirt",
-                "subtitle":"Soft white cotton t-shirt with CF Rockets logo",
-              },
-              {
-                "title":"Chatfuel Rockets Hoodie",
-                "subtitle":"Soft gray cotton t-shirt with CF Rockets logo",
-              }
-            ]
-          }
-        }
-      }
-    ]
-  }
+    messages: stories
+  };
 }
 
 /**
