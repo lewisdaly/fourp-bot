@@ -1,14 +1,43 @@
 const functions = require('firebase-functions');
+const validate = require('express-validation')
+const express = require('express');
+const bodyParser = require('body-parser')
 
+const validation = require('./validation');
+const isNullOrUndefined = require('../common/utils').isNullOrUndefined;
+const {
+  getPaymentFactors,
+  getPaymentEstimate,
+  getConditionsList
+} = require('../common/calc');
+
+const app = express();
+app.use(bodyParser.json());
+
+app.use(function (err, req, res, next) {
+  // specific for validation errors
+  if (err instanceof ev.ValidationError) {
+    console.log("isValidationError");
+    return res.status(err.status).json(err);
+  }
+
+  // other type of errors, it *might* also be a Runtime Error
+  // example handling
+  if (process.env.NODE_ENV !== 'production') {
+    return res.status(500).send(err.stack);
+  } else {
+    return res.status(500);
+  }
+});
 /**
  * query params:
- * - expecting_baby, string,
- * - young_children, string,
- * - elementary_school_children, string,
- * - high_school_children, string,
+ * - expecting_baby, string, 'yes' or 'no'
+ * - young_children, string, one of '0', '1', '2', '3+'
+ * - elementary_school_children, string, one of '0', '1', '2', '3+'
+ * - high_school_children, string, one of '0', '1', '2', '3+'
  *
  */
-module.exports = functions.https.onRequest((req, res) => {
+app.get('/', validate(validation), (req, res) => {
   paymentParser(req.query)
   .then(({
     pregnant,
@@ -21,8 +50,7 @@ module.exports = functions.https.onRequest((req, res) => {
         isNullOrUndefined(elementarySchoolChildren) ||
         isNullOrUndefined(highSchoolChildren)
     ) {
-      res.status(400);
-      return res.send('Error. Could not understand query.');
+      return res.status(400).send('Error. Could not understand query.');
     }
 
     const { x, y } = getPaymentFactors(elementarySchoolChildren, highSchoolChildren);
@@ -32,12 +60,7 @@ module.exports = functions.https.onRequest((req, res) => {
 
     const responseString = `We estimate your payment to be: ${paymentEstimate}p a month, up to ___ a year.${conditionsList}\n`;
 
-    res.send(responseString);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500);
-    res.send('Error: ', err);
+    res.status(200).send(responseString);
   });
 });
 
@@ -57,6 +80,10 @@ const paymentParser = (query) => {
       high_school_children,
       young_children,
     } = query;
+
+    if (!expecting_baby) {
+      return reject(new Error('param: `expecting_baby` not found'));
+    }
 
     let pregnant = false;
     if (expecting_baby.toLowerCase() === "yes"
@@ -86,3 +113,6 @@ const paymentParser = (query) => {
     });
   });
 }
+
+
+module.exports = functions.https.onRequest(app);
