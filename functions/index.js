@@ -1,4 +1,7 @@
-var functions = require('firebase-functions');
+const functions = require('firebase-functions');
+const getNews = require('./getNews/getNews');
+
+exports.getNews = getNews;
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/functions/write-firebase-functions
