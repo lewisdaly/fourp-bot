@@ -11,6 +11,44 @@ through the conversation are chosen based on the user's response.
 
 module.exports = function(controller) {
 
+	controller.hears('test', 'message_received', function(bot, message) {
+
+    var attachment = {
+        'type':'template',
+        'payload':{
+            'template_type':'generic',
+            'elements':[
+                {
+                    'title':'Chocolate Cookie',
+                    'image_url':'http://cookies.com/cookie.png',
+                    'subtitle':'A delicious chocolate cookie',
+                    'buttons':[
+                        {
+                        'type':'postback',
+                        'title':'Eat Cookie',
+                        'payload':'chocolate'
+                        }
+                    ]
+                },
+            ]
+        }
+    };
+
+    bot.reply(message, {
+        attachment: attachment,
+    });
+
+});
+
+controller.on('facebook_postback', function(bot, message) {
+
+    if (message.payload == 'chocolate') {
+        bot.reply(message, 'You ate the chocolate cookie!')
+    }
+
+});
+
+
     controller.hears(['color'], 'message_received', function(bot, message) {
 
         bot.startConversation(message, function(err, convo) {
