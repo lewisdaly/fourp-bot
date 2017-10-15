@@ -1,7 +1,7 @@
 module.exports = function(webserver, controller) {
 
     console.log('Configured POST /facebook/receive url for receiving events');
-    webserver.post('/facebook/receive', function(req, res) {
+    webserver.post('*/facebook/receive', function(req, res) {
 
         // NOTE: we should enforce the token check here
 
@@ -17,7 +17,7 @@ module.exports = function(webserver, controller) {
     });
 
     console.log('Configured GET /facebook/receive url for verification');
-    webserver.get('/facebook/receive', function(req, res) {
+    webserver.get('*/facebook/receive', function(req, res) {
         if (req.query['hub.mode'] == 'subscribe') {
             if (req.query['hub.verify_token'] == controller.config.verify_token) {
                 res.send(req.query['hub.challenge']);

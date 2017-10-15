@@ -1,8 +1,8 @@
+const functions = require('firebase-functions');
 const env = require('node-env-file');
-env(__dirname + '/.env');
-
 const Botkit = require('botkit');
 
+env(__dirname + '/.env');
 
 const controller = Botkit.facebookbot({
     verify_token: process.env.verify_token,
