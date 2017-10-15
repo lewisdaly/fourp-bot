@@ -1,7 +1,6 @@
 const functions = require('firebase-functions');
 const validate = require('express-validation')
 const express = require('express');
-const bodyParser = require('body-parser')
 
 const validation = require('./validation');
 const isNullOrUndefined = require('../common/utils').isNullOrUndefined;
@@ -12,7 +11,6 @@ const {
 } = require('../common/calc');
 
 const app = express();
-app.use(bodyParser.json());
 
 app.use(function (err, req, res, next) {
   // specific for validation errors
@@ -29,6 +27,7 @@ app.use(function (err, req, res, next) {
     return res.status(500);
   }
 });
+
 /**
  * query params:
  * - expecting_baby, string, 'yes' or 'no'
@@ -37,7 +36,7 @@ app.use(function (err, req, res, next) {
  * - high_school_children, string, one of '0', '1', '2', '3+'
  *
  */
-app.get('/', validate(validation), (req, res) => {
+app.get('*', validate(validation), (req, res) => {
   paymentParser(req.query)
   .then(({
     pregnant,
@@ -55,14 +54,24 @@ app.get('/', validate(validation), (req, res) => {
 
     const { x, y } = getPaymentFactors(elementarySchoolChildren, highSchoolChildren);
     const paymentEstimate = getPaymentEstimate(x, y);
-    const conditionsList = getConditionsList(pregnant, youngChildren, elementarySchoolChildren, highSchoolChildren)
-      .reduce((acc, curr) => acc + '\n' + curr, '');
+    const responseList = [{text:`We estimate your payment to be: ${paymentEstimate}p a month, up to ___ a year.`}];
+    getConditionsList(pregnant, youngChildren, elementarySchoolChildren, highSchoolChildren).forEach(condition => {
+      responseList.push({text: condition});
+    });
 
-    const responseString = `We estimate your payment to be: ${paymentEstimate}p a month, up to ___ a year.${conditionsList}\n`;
-
-    res.status(200).send(responseString);
+    res.status(200).send(formatMessage(responseList));
   });
 });
+
+
+/**
+ * Format the message per the chatfuel api
+ */
+const formatMessage = (responseList) => {
+  return {
+    messages: responseList,
+  };
+}
 
 const childrenParser = (childrenText) => {
   if (childrenText.indexOf('+') > -1) {
