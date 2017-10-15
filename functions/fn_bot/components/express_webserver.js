@@ -22,7 +22,7 @@ module.exports = function(controller, bot) {
     // });
 
     // import all the pre-defined routes that are present in /components/routes
-    var normalizedPath = require("path").join(__dirname, "routes");
+    var normalizedPath = require("path").join(__dirname, "/routes");
     require("fs").readdirSync(normalizedPath).forEach(function(file) {
       require("./routes/" + file)(webserver, controller);
     });

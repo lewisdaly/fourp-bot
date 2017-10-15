@@ -11,8 +11,13 @@ const controller = Botkit.facebookbot({
     studio_command_uri: process.env.studio_command_uri,
 });
 
+const app = require(__dirname + '/components/express_webserver.js')(controller);
+require(__dirname + '/components/subscribe_events.js')(controller);
 
-const app = require(__dirname + '/express_webserver.js')(controller);
+var normalizedPath = require("path").join(__dirname, "skills");
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  require("./skills/" + file)(controller);
+});
 
 
 module.exports = functions.https.onRequest(app);
