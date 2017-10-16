@@ -1,18 +1,63 @@
-/*
+yaml = require('js-yaml');
+fs   = require('fs');
 
-WHAT IS THIS?
 
-This module demonstrates simple uses of Botkit's conversation system.
+let script = null;
 
-In this example, Botkit hears a keyword, then asks a question. Different paths
-through the conversation are chosen based on the user's response.
+module.exports = function(controller, script) {
 
-*/
+  //TODO: move to facebook template interface
+  const generateButtonsForTemplate = (buttons) => {
+    const elements = buttons.map(button => {
+      return {
+        title: button.title,
+        subtitle: button.subtitle,
+        buttons: [
+          {
+            type: 'postback',
+            title: button.button_title,
+            payload: button.payload
+          }
+        ],
+      };
+    });
 
-module.exports = function(controller) {
+    return {
+      template_type:'generic',
+      elements: elements
+    };
+  };
+
+  controller.hears('menu', 'message_received', (bot, message) => {
+    bot.startConversation(message, function(err, convo) {
+        convo.say(script.menu.intro);
+        //TODO: proper adapter!
+        var msg = {
+          attachment: {
+            type: "template",
+            payload: generateButtonsForTemplate(script.menu.buttons)
+          }
+        };
+        convo.say(msg);
+    });
+  });
+
+  //subscribe to button postbacks, not sure if this will work
+  script.menu.buttons.forEach(button => {
+    const event = 'message_received,facebook_postback';
+    controller.hears(button.payload, event, (bot, message) => {
+      bot.reply(message, button.payload);
+    });
+  });
+
+
+  controller.hears('test1','message_received,facebook_postback', (bot,message) => {
+    //TODO: route to stuff
+    bot.reply(message, 'Got it!');
+
+  });
 
 	controller.hears('test', 'message_received', function(bot, message) {
-
     var attachment = {
         'type':'template',
         'payload':{

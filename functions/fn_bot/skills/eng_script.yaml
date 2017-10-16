@@ -1,0 +1,38 @@
+
+introduction:
+  intro: "Hi, {{first name}}! I'm 4Pbot.\n\nI'm here to help you with your questions and problems with the 4Ps."
+  language: "What language would you like me to speak?\nEnglish, Tagalog, or Cebuano?"
+  progress: I'm currently a work in progress, so please be patient with me. I'm also looking for any feedback you have along the way.
+
+phone:
+  ask: For starters, can you please share your phone number with me? It will help me to get in touch later on.
+  error: What you've entered does not look like a number. Please try again.
+  thanks: Thanks!
+
+menu:
+  intro: "Here's some of the things you can ask me."
+  buttons:
+    - title: When is my next payout?
+      subtitle: I can estimate when your next payout is. I can also see if there are any delays.
+      button_title: When is my payout?.
+      payload: menu-button-payout
+
+    - title: I'd like to report a problem.
+      subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
+      button_title: Make a secret report
+      payload: menu-button-problem
+
+    - title: Help me calculate my payout.
+      subtitle: Calculate your payout, and what conditions you need to meet.
+      button_title: Calculate my payout.
+      payload: menu-button-calculate
+
+    - title: What's the latest 4Ps news?
+      subtitle: I can tell you the latest happenings with the 4ps and DSWD.
+      button_title: 4Ps news
+      payload: menu-button-news
+
+    - title: 4Pbot feedback
+      subtitle: Have I been helpful at all? Let me know.
+      button_title: Leave feedback
+      payload: menu-button-feedback

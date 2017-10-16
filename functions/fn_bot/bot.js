@@ -14,9 +14,22 @@ const controller = Botkit.facebookbot({
 const app = require(__dirname + '/components/express_webserver.js')(controller);
 require(__dirname + '/components/subscribe_events.js')(controller);
 
+// Load the scripts from yaml
+//TODO: make this more flexible... how do we handle switching scripts for example?
+const normalizedPath = require("path").join(__dirname);
+try {
+  script = yaml.safeLoad(fs.readFileSync(normalizedPath + '/eng_script.yaml'));
+  console.log(script);
+} catch (err) {
+  console.log(err);
+}
+
 var normalizedPath = require("path").join(__dirname, "skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./skills/" + file)(controller);
+  if (file.indexOf('.js') === -1) {
+    return;
+  }
+  require("./skills/" + file)(controller, script);
 });
 
 
