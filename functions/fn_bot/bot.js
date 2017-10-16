@@ -12,6 +12,9 @@ const controller = Botkit.facebookbot({
     access_token: process.env.page_token,
     studio_token: process.env.studio_token,
     studio_command_uri: process.env.studio_command_uri,
+		//ref: https://github.com/howdyai/botkit/blob/master/docs/readme-facebook.md#require-delivery-confirmation
+		// require_delivery: true,
+    // receive_via_postback: true,
 });
 
 const app = require(__dirname + '/components/express_webserver.js')(controller);

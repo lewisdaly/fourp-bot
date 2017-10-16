@@ -23,7 +23,7 @@ menu:
     - title: I'd like to report a problem.
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
-      redirect_to: menu-button-problem
+      redirect_to: problem
 
     - title: Help me calculate my payout.
       subtitle: Calculate your payout, and what conditions you need to meet.
@@ -52,19 +52,31 @@ payout:
     quick_reply_title: Menu
     redirect_to: menu
 
-
 problem:
   trigger: problem
   intro: Sure, I can help with that.
   statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
   question_1:
-    text: What type of problem are you having?
+    text: "What type of problem are you having?\n\n1. Not receiving correct payment.\n2. Less than 3 of my kids are enrolled.\n3. My family details have not been updated yet.\n4. Other."
     options:
-      - not receiving correct payment
-      - less than 3 of my children are enrolled
-      - details have not been updated
-      - other
-  question_2: Where do you live?
-  question_3: Tell us a few details about what the problem is.
+      - text: '1'
+        payload: incorrect_payment
+      - text: '2'
+        payload: enrollment
+      - text: '3'
+        payload: update
+      - text: '4'
+        payload: other
+  question_2:
+    text: Where do you live?
+    paylod: location
+  question_3:
+    text: Tell us a few details about what the problem is.
+    paylod: details
   reply: Thanks!
-  menu_button: menu
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
+calculate:
