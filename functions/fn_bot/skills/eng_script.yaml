@@ -1,3 +1,5 @@
+# TODO: This is both defining a script and behaviour. In the future, we will separate the concerns
+
 
 introduction:
   intro: "Hi, {{first name}}! I'm 4Pbot.\n\nI'm here to help you with your questions and problems with the 4Ps."
@@ -10,29 +12,59 @@ phone:
   thanks: Thanks!
 
 menu:
-  intro: "Here's some of the things you can ask me."
+  trigger: menu
+  intro: "Here's some of the things you can ask me:"
   buttons:
     - title: When is my next payout?
       subtitle: I can estimate when your next payout is. I can also see if there are any delays.
-      button_title: When is my payout?.
-      payload: menu-button-payout
+      button_title: When is my payout?
+      redirect_to: payout
 
     - title: I'd like to report a problem.
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
-      payload: menu-button-problem
+      redirect_to: menu-button-problem
 
     - title: Help me calculate my payout.
       subtitle: Calculate your payout, and what conditions you need to meet.
       button_title: Calculate my payout.
-      payload: menu-button-calculate
+      redirect_to: menu-button-calculate
 
     - title: What's the latest 4Ps news?
       subtitle: I can tell you the latest happenings with the 4ps and DSWD.
       button_title: 4Ps news
-      payload: menu-button-news
+      redirect_to: menu-button-news
 
     - title: 4Pbot feedback
       subtitle: Have I been helpful at all? Let me know.
       button_title: Leave feedback
-      payload: menu-button-feedback
+      redirect_to: menu-button-feedback
+
+payout:
+  trigger: payout
+  intro: Sure, I can help with that.
+  statement_1: I should let you know I'm still learning this feature, so my estimates may be a little wrong.
+  statement_2: Make sure to check with your parent leader about the payout day as well.
+  button: Where do you live?
+  reply: "The next scheduled payout for _barangay_ is between _date_1_ and _date_2_. \nHowever, it looks like payments might be delayed by up to _delay_time_"
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
+
+problem:
+  trigger: problem
+  intro: Sure, I can help with that.
+  statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
+  question_1:
+    text: What type of problem are you having?
+    options:
+      - not receiving correct payment
+      - less than 3 of my children are enrolled
+      - details have not been updated
+      - other
+  question_2: Where do you live?
+  question_3: Tell us a few details about what the problem is.
+  reply: Thanks!
+  menu_button: menu

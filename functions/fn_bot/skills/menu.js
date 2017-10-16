@@ -1,11 +1,4 @@
-yaml = require('js-yaml');
-fs   = require('fs');
-
-
-let script = null;
-
-module.exports = function(controller, script) {
-
+module.exports = (controller, script) => {
   //TODO: move to facebook template interface
   const generateButtonsForTemplate = (buttons) => {
     const elements = buttons.map(button => {
@@ -16,7 +9,7 @@ module.exports = function(controller, script) {
           {
             type: 'postback',
             title: button.button_title,
-            payload: button.payload
+            payload: button.redirect_to
           }
         ],
       };
@@ -28,7 +21,7 @@ module.exports = function(controller, script) {
     };
   };
 
-  controller.hears('menu', 'message_received', (bot, message) => {
+  controller.hears(script.menu.trigger, 'message_received', (bot, message) => {
     bot.startConversation(message, function(err, convo) {
         convo.say(script.menu.intro);
         //TODO: proper adapter!
@@ -42,13 +35,15 @@ module.exports = function(controller, script) {
     });
   });
 
-  //subscribe to button postbacks, not sure if this will work
-  script.menu.buttons.forEach(button => {
-    const event = 'message_received,facebook_postback';
-    controller.hears(button.payload, event, (bot, message) => {
-      bot.reply(message, button.payload);
-    });
-  });
+  //subscribe to button postbacks, not sure if this will work -
+  //nope - we cannot redirect to another thread programatically
+
+  // script.menu.buttons.forEach(button => {
+  //   const event = 'message_received,facebook_postback';
+  //   controller.hears(button.payload, event, (bot, message) => {
+  //     bot.reply(message, button.payload);
+  //   });
+  // });
 
 
   controller.hears('test1','message_received,facebook_postback', (bot,message) => {
