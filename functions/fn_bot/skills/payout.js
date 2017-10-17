@@ -21,9 +21,9 @@ module.exports = (controller, script) => {
         		lat: response.attachments[0].payload.coordinates.lat,
         		lng: response.attachments[0].payload.coordinates.long
         	};
-          console.log('location is: ', latLng);
 
           const payload = {latLng};
+          //TODO: we should simulate typing here, as a loading indicator
           return api.getPayout(payload)
           .then(message => {
             convo.sayFirst(message.text);

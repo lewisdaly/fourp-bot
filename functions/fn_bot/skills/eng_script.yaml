@@ -28,7 +28,7 @@ menu:
     - title: I'd like to report a problem.
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
-      redirect_to: problem
+      redirect_to: report
 
     - title: Help me calculate my payout.
       subtitle: Calculate your payout, and what conditions you need to meet.
@@ -57,8 +57,8 @@ payout:
     quick_reply_title: Menu
     redirect_to: menu
 
-problem:
-  trigger: problem
+report:
+  trigger: report
   intro: Sure, I can help with that.
   statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
   question_1:

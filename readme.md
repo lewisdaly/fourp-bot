@@ -18,4 +18,26 @@ curl -X GET \
   'http://localhost:5000/fourp-bot/us-central1/getMessage/menu?langauge=ceb' \
 
 
+curl -X POST \
+    https://hooks.zapier.com/hooks/catch/2292424/i9l7nx/ \
+    -H 'cache-control: no-cache' \
+    -H 'content-type: application/json' \
+    -H 'postman-token: c3c6a172-730a-90e9-18bf-6f24e98ea0f8' \
+    -d '{
+    "user_id": "user_id",
+    "first_name": "first_name",
+    "last_name": "last_name",
+    "phone_number": "phone_number",
+    "langauge": "langauge",
+    "report_type": "reportType",
+    "description": "desc",
+    "lat": "lat",
+    "lng": "lng",
+    "address": "address",
+    "country": "country",
+    "zip": "zip"
+  }'
+
+
+
 ```

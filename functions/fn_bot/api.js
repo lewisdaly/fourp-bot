@@ -2,13 +2,50 @@ const request = require('request-promise');
 require('request-to-curl');
 
 
-const FOURP_FEEDBACK_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l15z/';
+const ZAPIER_FEEDBACK_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l15z/';
+const ZAPIER_REPORT_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l7nx/';
 
 const FIREBASE_BASE_URL = 'https://us-central1-fourp-bot.cloudfunctions.net';
 const FOURP_GET_NEWS_URL = `${FIREBASE_BASE_URL}/getNews/`;
 const FOURP_CALCULATE_PAY_URL = `${FIREBASE_BASE_URL}/calculatePay/`;
 
 module.exports = {
+
+	/**
+	 * Payload:
+	 * user_id: String
+	 * first_name: String
+	 * last_name: String
+	 * phone_number: String
+	 * langauge: String
+	 * report_type: String
+	 * description: String
+	 * lat: Float
+	 * lng: Float
+	 * address: String
+	 * country: String
+	 * zip: Int
+	 */
+	report: (payload) => {	
+		const options = {
+      method: 'POST',
+      uri: ZAPIER_REPORT_WEBHOOK,
+      body: payload,
+      json: true
+    };
+
+    return request(options)
+    .then(response => {
+      console.log(response);
+			return response;
+    })
+    .catch(err => {
+      console.log(err);
+      return Promise.reject(err);
+    });
+
+	},
+
 
 	/**
 	 * Unsure what this will look like just yet
@@ -79,7 +116,7 @@ module.exports = {
   leaveFeedback: (payload) => {
     const options = {
       method: 'POST',
-      uri: FOURP_FEEDBACK_WEBHOOK,
+      uri: ZAPIER_FEEDBACK_WEBHOOK,
       body: payload,
       json: true
     };
