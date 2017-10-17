@@ -1,23 +1,8 @@
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, script) => {
-
-  controller.hears(['cookies'], 'message_delivered', function(bot, message) {
-
-    bot.startConversation(message, function(err, convo) {
-
-        convo.say('Did someone say cookies!?!!');
-        convo.ask('What is your favorite type of cookie?', function(response, convo) {
-            convo.say('Golly, I love ' + response.text + ' too!!!');
-            convo.next();
-        });
-    });
-  });
-
-
-  //eww so much nesting
   controller.hears(script.problem.trigger, DEFAULT_EVENT, (bot, message) => {
-    bot.startConversation(message, function(err, convo) {
+    bot.startConversation(message, (err, convo) => {
       //TODO: somehow separate into 2 messages
       convo.say(`${script.problem.intro}\n\n${script.problem.statement_1}`);
 
@@ -30,16 +15,15 @@ module.exports = (controller, script) => {
       });
 
       convo.addQuestion({text:script.problem.question_1.text, quick_replies: q1_replies}, (response, convo) => {
-
         console.log(response);
+
         if (response.text) {
           convo.next();
         }
-
       });
 
       //TODO: only ask if we don't already have this info
-      convo.addQuestion({text:script.problem.question_2.text}, (response, convo) => {
+      convo.addQuestion({text: script.problem.question_2.text}, (response, convo) => {
         console.log(response);
 
         if (response.text) {
@@ -47,7 +31,7 @@ module.exports = (controller, script) => {
         }
       });
 
-      convo.addQuestion({text:script.problem.question_3.text}, (response, convo) => {
+      convo.addQuestion({text: script.problem.question_3.text}, (response, convo) => {
         console.log(response);
         if (response.text) {
           convo.next();

@@ -38,7 +38,7 @@ menu:
     - title: 4Pbot feedback
       subtitle: Have I been helpful at all? Let me know.
       button_title: Leave feedback
-      redirect_to: menu-button-feedback
+      redirect_to: feedback
 
 payout:
   trigger: payout
@@ -79,4 +79,24 @@ problem:
     quick_reply_title: Menu
     redirect_to: menu
 
-calculate:
+feedback:
+  trigger: feedback
+  question_1:
+    text: How would you rate your experience with 4PBot?
+    options:
+      - text: '😣'
+        payload: -1
+      - text: '😐'
+        payload: 0
+      - text: '😀'
+        payload: 1
+
+
+
+  question_2: How could I be improved?
+  question_3: What are some other features you would like me to have?
+  reply: Thanks!
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
