@@ -11,6 +11,11 @@ phone:
   error: What you've entered does not look like a number. Please try again.
   thanks: Thanks!
 
+menu_button:
+  text: Anything else I can help with?
+  quick_reply_title: Menu
+  redirect_to: menu
+
 menu:
   trigger: menu
   intro: "Here's some of the things you can ask me:"
@@ -28,12 +33,12 @@ menu:
     - title: Help me calculate my payout.
       subtitle: Calculate your payout, and what conditions you need to meet.
       button_title: Calculate my payout.
-      redirect_to: menu-button-calculate
+      redirect_to: calculate
 
     - title: What's the latest 4Ps news?
       subtitle: I can tell you the latest happenings with the 4ps and DSWD.
       button_title: 4Ps news
-      redirect_to: menu-button-news
+      redirect_to: news
 
     - title: 4Pbot feedback
       subtitle: Have I been helpful at all? Let me know.
@@ -79,6 +84,62 @@ problem:
     quick_reply_title: Menu
     redirect_to: menu
 
+calculate:
+  trigger: calculate
+  intro: I can help you to estimate your 4Ps payment. Just answer these few questions!
+  question_1:
+    text: Are you pregnant or expecting a baby?
+    options:
+      - text: Yes
+        payload: true
+      - text: No
+        payload: false
+  question_2:
+    text: How many children do you have from ages 0-5?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  question_3:
+    text: How many children in your household are in elementary school?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  question_4:
+    text: How many children in your household are in high school?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  reply: Thanks! That's all we need to know.
+
+news:
+  trigger: news
+  intro: 'These are the 3 latest stories I have about 4Ps:'
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
 feedback:
   trigger: feedback
   question_1:
@@ -90,8 +151,6 @@ feedback:
         payload: 0
       - text: '😀'
         payload: 1
-
-
 
   question_2: How could I be improved?
   question_3: What are some other features you would like me to have?

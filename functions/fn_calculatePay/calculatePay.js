@@ -34,6 +34,7 @@ app.use(function (err, req, res, next) {
  * - young_children, string, one of '0', '1', '2', '3+'
  * - elementary_school_children, string, one of '0', '1', '2', '3+'
  * - high_school_children, string, one of '0', '1', '2', '3+'
+ * - language
  *
  */
 app.get('*', validate(validation), (req, res) => {

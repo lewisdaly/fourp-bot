@@ -4,17 +4,58 @@ require('request-to-curl');
 
 const FOURP_FEEDBACK_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l15z/';
 
+const FIREBASE_BASE_URL = 'https://us-central1-fourp-bot.cloudfunctions.net';
+const FOURP_GET_NEWS_URL = `${FIREBASE_BASE_URL}/getNews/`;
+const FOURP_CALCULATE_PAY_URL = `${FIREBASE_BASE_URL}/calculatePay/`;
+
 module.exports = {
 
+	/**
+	 * Payload
+	 * - expecting_baby, string, 'yes' or 'no'
+	 * - young_children, string, one of '0', '1', '2', '3+'
+	 * - elementary_school_children, string, one of '0', '1', '2', '3+'
+	 * - high_school_children, string, one of '0', '1', '2', '3+'
+	 * - language
+	 */
+	calculatePay: (payload) => {
+		const options = {
+			method: 'GET',
+			uri: FOURP_CALCULATE_PAY_URL,
+			qs: payload,
+			json: true
+		};
+
+		return request(options)
+		.then(response => {
+			return response.messages;
+		})
+		.catch(err => {
+			console.log(err);
+			return Promise.reject(err);
+		});
+	},
+
   getNewsForLanguage: (language) => {
-    //TODO: talk to firebase mate
-    
-    return {
-      story1: 'This is story1.',
-      story2: 'This is story2.',
-      story3: 'This is story3.'
+    const options = {
+      method: 'GET',
+      uri: FOURP_NEWS_URL,
+      qs: {
+        language,
+      },
+      json: true
     };
-  };
+
+    return request(options)
+    .then(response => {
+      console.log(response);
+      return response;
+    })
+    .catch(err => {
+      console.log(err);
+      return Promise.reject(err);
+    });
+  },
 
   /**
    * payload is an object with the following keys:
@@ -27,7 +68,7 @@ module.exports = {
    * - features
    */
   leaveFeedback: (payload) => {
-    var options = {
+    const options = {
       method: 'POST',
       uri: FOURP_FEEDBACK_WEBHOOK,
       body: payload,
