@@ -11,6 +11,15 @@ const FOURP_CALCULATE_PAY_URL = `${FIREBASE_BASE_URL}/calculatePay/`;
 module.exports = {
 
 	/**
+	 * Unsure what this will look like just yet
+	 */
+	getPayout: (payload) => {
+		return new Promise(function(resolve, reject) {
+			resolve({text:'The next scheduled payout for _barangay_ is between _date_1_ and _date_2_. \nHowever, it looks like payments might be delayed by up to _delay_time_'})
+		});
+	},
+
+	/**
 	 * Payload
 	 * - expecting_baby, string, 'yes' or 'no'
 	 * - young_children, string, one of '0', '1', '2', '3+'
