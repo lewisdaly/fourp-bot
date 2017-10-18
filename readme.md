@@ -41,3 +41,9 @@ curl -X POST \
 
 
 ```
+
+
+## Setup the GetStarted Button:
+```
+./scripts/setup_get_started.sh
+```
