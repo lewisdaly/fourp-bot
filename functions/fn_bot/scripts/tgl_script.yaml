@@ -13,11 +13,11 @@ menu_button:
 
 menu:
   trigger: menu
-  intro: "Here's some of the things you can ask me:"
+  intro: "Mga bagay na pwedeng itanong sakin:"
   buttons:
-    - title: When is my next payout?
-      subtitle: I can estimate when your next payout is. I can also see if there are any delays.
-      button_title: When is my payout?
+    - title: Kailan ang sunod na payout?
+      subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
+      button_title: Kailan ang aking payout?
       redirect_to: payout
 
     - title: I'd like to report a problem.

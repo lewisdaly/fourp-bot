@@ -28,15 +28,16 @@ module.exports = (controller, scripts) => {
   controller.hears([scripts.eng.menu.trigger, 'Menu'], DEFAULT_EVENT, (bot, message) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
     bot.startConversation(message, function(err, convo) {
-        convo.say(script.menu.intro);
-        //TODO: proper adapter!
-        var msg = {
-          attachment: {
-            type: "template",
-            payload: generateButtonsForTemplate(script.menu.buttons)
-          }
-        };
-        convo.say(msg);
+      convo.say(script.menu.intro);
+
+      //TODO: proper adapter!
+      var msg = {
+        attachment: {
+          type: "template",
+          payload: generateButtonsForTemplate(script.menu.buttons)
+        }
+      };
+      convo.say(msg);
     });
   });
 };

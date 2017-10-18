@@ -4,41 +4,7 @@ const { scriptForLanguage } = require('../util');
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, scripts) => {
-  controller.hears('test', 'message_received', function(bot, message) {
-    var attachment = {
-        'type':'template',
-        'payload':{
-            'template_type':'generic',
-            'elements':[
-                {
-                    'title':'Chocolate Cookie',
-                    'image_url':'http://cookies.com/cookie.png',
-                    'subtitle':'A delicious chocolate cookie',
-                    'buttons':[
-                        {
-                        'type':'postback',
-                        'title':'Eat Cookie',
-                        'payload':'chocolate'
-                        }
-                    ]
-                },
-            ]
-        }
-    };
-
-    bot.reply(message, {
-        attachment: attachment,
-    });
-  });
-
-  controller.on('facebook_postback', function(bot, message) {
-    console.log("facebook_postback received");
-    if (message.payload == 'chocolate') {
-      bot.reply(message, 'You ate the chocolate cookie!')
-    }
-  });
-
-  controller.hears(scripts.eng.feedback.trigger, DEFAULT_EVENT, (bot, message) => {
+  controller.hears(scripts.eng.calculate.trigger, DEFAULT_EVENT, (bot, message) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     bot.startConversation(message, (err, convo) => {
@@ -72,10 +38,10 @@ module.exports = (controller, scripts) => {
           features = response.text;
 
           api.leaveFeedback({
-            firstName: 'firstName',
-            lastName: 'lastName',
-            userId: 'userId',
-            language: 'language',
+            firstName: message.user_profile.first_name,
+            lastName: message.user_profile.last_name,
+            userId: message.user_profile.id,
+            language: message.user_profile.language,
             score: score,
             improved: improved,
             features: features,

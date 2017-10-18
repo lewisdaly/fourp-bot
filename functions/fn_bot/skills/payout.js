@@ -5,7 +5,7 @@ const { scriptForLanguage } = require('../util');
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, scripts) => {
-  controller.hears(scripts.eng.payout.trigger, DEFAULT_EVENT, (bot, message) => {
+  controller.hears('payout', DEFAULT_EVENT, (bot, message) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     bot.startConversation(message, (err, convo) => {

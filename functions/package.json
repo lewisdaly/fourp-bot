@@ -4,7 +4,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "botkit": "^0.6",
-    "botkit-middleware-fbuser": "https://github.com/vessels-tech/botkit-middleware-fbuser#a7dfb27533538ee551d5a5ef0bad16d1d0399b15",
+    "botkit-middleware-fbuser": "https://github.com/vessels-tech/botkit-middleware-fbuser#986e6485792fe8961bd96a599221c969f745c895",
     "botkit-storage-firebase": "^1.0.0",
     "dashbot": "0.7.4",
     "express": "^4.16.2",

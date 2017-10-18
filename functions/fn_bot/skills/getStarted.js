@@ -15,14 +15,13 @@ module.exports = (controller, scripts) => {
   //
   // });
 
-  controller.hears(['getStarted', 'Hi'], DEFAULT_EVENT, (bot, message) => {
+  controller.hears(['getStarted', 'Hi', 'hi'], DEFAULT_EVENT, (bot, message) => {
     bot.startConversation(message, (err, convo) => {
-      //TODO: figure out placeholders with mustache
-      convo.say(commonScript.intro);
+      convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
 
       const q1_replies = formatRepliesForOptions(commonScript.question_1.options);
       convo.addQuestion({
-        text:commonScript.question_1.text,
+        text: commonScript.question_1.text,
         quick_replies: q1_replies
       }, (response, convo) => {
         if (!response.quick_reply || !response.quick_reply.payload) {
