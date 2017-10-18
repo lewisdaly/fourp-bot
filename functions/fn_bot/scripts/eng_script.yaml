@@ -1,11 +1,6 @@
 # TODO: This is both defining a script and behaviour. In the future, we will separate the concerns
 
 
-introduction:
-  intro: "Hi, {{first name}}! I'm 4Pbot.\n\nI'm here to help you with your questions and problems with the 4Ps."
-  language: "What language would you like me to speak?\nEnglish, Tagalog, or Cebuano?"
-  progress: I'm currently a work in progress, so please be patient with me. I'm also looking for any feedback you have along the way.
-
 phone:
   ask: For starters, can you please share your phone number with me? It will help me to get in touch later on.
   error: What you've entered does not look like a number. Please try again.
@@ -74,7 +69,7 @@ report:
         payload: other
   question_2:
     text: Where do you live?
-    paylod: location
+    payload: location
   question_3:
     text: Tell us a few details about what the problem is.
     paylod: details

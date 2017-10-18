@@ -1,3 +1,5 @@
+const DEFAULT_EVENT = 'message_received,facebook_postback';
+
 module.exports = (controller, script) => {
   //TODO: move to facebook template interface
   const generateButtonsForTemplate = (buttons) => {
@@ -21,7 +23,7 @@ module.exports = (controller, script) => {
     };
   };
 
-  controller.hears(script.menu.trigger, 'message_received', (bot, message) => {
+  controller.hears([script.menu.trigger, 'Menu'], DEFAULT_EVENT, (bot, message) => {
     bot.startConversation(message, function(err, convo) {
         convo.say(script.menu.intro);
         //TODO: proper adapter!

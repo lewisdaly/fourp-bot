@@ -24,21 +24,19 @@ require(__dirname + '/components/subscribe_events.js')(controller);
 
 //TODO: make this more flexible... how do we allow user to change languages for example?
 let script = null;
-const normalizedPath = require("path").join(__dirname, "skills");
+const skillsPath = require("path").join(__dirname, "skills");
+const scriptsPath = require("path").join(__dirname, "scripts");
 try {
-  script = yaml.safeLoad(fs.readFileSync(normalizedPath + '/eng_script.yaml'));
-  console.log(script);
+  script = yaml.safeLoad(fs.readFileSync(scriptsPath + '/eng_script.yaml'));
+	controller.commonScript = yaml.safeLoad(fs.readFileSync(scriptsPath + '/common_script.yaml'));
 } catch (err) {
   console.log(err);
 }
 
 /* Load the skills */
-fs.readdirSync(normalizedPath).forEach(function(file) {
-  if (file.indexOf('.js') === -1) {
-    return;
-  }
-  require("./skills/" + file)(controller, script);
-});
+fs.readdirSync(skillsPath)
+	.filter(file => file.indexOf('.js') > -1)
+	.forEach(file => require("./skills/" + file)(controller, script));
 
 
 module.exports = functions.https.onRequest(app);

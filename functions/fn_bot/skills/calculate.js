@@ -1,17 +1,7 @@
 const api = require('../api');
+const { formatRepliesForOptions } = require('../format');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
-
-//TODO: make a facebookFormattingClass
-const formatRepliesForOptions = (options) => {
-  return options.map(option => {
-    return {
-      content_type: 'text',
-      title: option.text,
-      payload: option.payload
-    };
-  });
-}
 
 module.exports = (controller, script) => {
   controller.hears(script.calculate.trigger, DEFAULT_EVENT, (bot, message) => {

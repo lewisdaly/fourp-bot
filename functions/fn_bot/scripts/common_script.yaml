@@ -1,0 +1,33 @@
+introduction:
+  intro: "Hi, {{first name}}! Ako po si 4Pbot.\n\nAko po ay tutulong sa iyong mga katanungan at problema sa 4Ps."
+  question_1:
+    text: "Anong lengguwahe ang gusto mo?\n\nUnsa nga lengguwahe imong gusto?\n\nWhat language would you like me to speak?"
+    options:
+      - text: 'Tagalog'
+        payload: tgl
+      - text: 'Bisaya'
+        payload: ceb
+      - text: 'English'
+        payload: eng
+  threads:
+    eng:
+      progress: I'm currently a work in progress, so please be patient with me. I'm also looking for any feedback you have along the way.
+      phone_number: For starters, can you please share your phone number with me? It will help me to get in touch later on.
+      phone_number_error: What you've entered does not look like a number. Please try again.
+      thanks: Thanks!
+      quick_reply_title: Menu
+      redirect_to: menu
+    tgl:
+      progress: Kasalukuyan po akong denedebelop, kaya mangyaring magtiyaga sa akin. Naghahanap din ako ng anumang feedback na mayroon ka sa darating na mga araw.
+      phone_number: Para sa baguhan, maaari mo bang ibahagi sa akin ang iyong numero? Makakatulong po ito upang makontak ka.
+      phone_number_error: Ang inyong inilagay ay hindi numero. Pakisubukang muli.
+      thanks: Salamat!
+      quick_reply_title: Menu
+      redirect_to: menu
+    ceb:
+      progress: Sa pagkakaron gidebelop pa ko, ug gipangayo nako ang dyutang pailob. Nangita usab ko ug feedback nimo niini nga mga panahon.
+      phone_number: Para sa bag-ohay, pwede ba nga isulat diri imong numero? Makatabang kini aron makontak ka.
+      phone_number_error: Murag dili numero ang imong gibutang. Palihug usba.
+      thanks: Salamat!
+      quick_reply_title: Menu
+      redirect_to: menu
