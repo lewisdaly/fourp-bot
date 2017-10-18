@@ -1,5 +1,5 @@
 introduction:
-  intro: "Hi, {{user_name}}! Ako po si 4Pbot.\n\nAko po ay tutulong sa iyong mga katanungan at problema sa 4Ps."
+  intro: "Hi, __first_name__! Ako po si 4Pbot.\n\nAko po ay tutulong sa iyong mga katanungan at problema sa 4Ps."
   question_1:
     text: "Anong lengguwahe ang gusto mo?\n\nUnsa nga lengguwahe imong gusto?\n\nWhat language would you like me to speak?"
     options:

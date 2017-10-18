@@ -19,8 +19,8 @@ const controller = Botkit.facebookbot({
     storage,
 
 		//ref: https://github.com/howdyai/botkit/blob/master/docs/readme-facebook.md#require-delivery-confirmation
-		// require_delivery: true,
-    // receive_via_postback: true,
+		require_delivery: true,
+    receive_via_postback: true,
 });
 
 const fbuser = FBUser({
@@ -72,6 +72,7 @@ fs.readdirSync(skillsPath)
 
 /* Default. Handle all other messages. This must be at the end. */
 controller.hears('.*', 'message_received', (bot, message) => {
+  console.log("Default Handler triggered");
   const script = scriptForLanguage(scripts, message.user_profile.language);
 
   bot.startConversation(message, (err, convo) => {
