@@ -9,6 +9,19 @@ const scriptForLanguage = (script, language) => {
   return script[language];
 }
 
+const shouldSkipResponse = (response) => {
+	if (response.type === 'message_received') {
+		return false;
+	}
+
+	if (response.type === 'facebook_postback') {
+		return false;
+	}
+
+	return true;
+}
+
 module.exports = {
-  scriptForLanguage
+  scriptForLanguage,
+	shouldSkipResponse,
 }

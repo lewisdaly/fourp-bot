@@ -6,6 +6,8 @@ const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, scripts) => {
   controller.hears('payout', DEFAULT_EVENT, (bot, message) => {
+    console.log("message:", message);
+
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     bot.startConversation(message, (err, convo) => {
