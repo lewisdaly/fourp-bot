@@ -1,7 +1,9 @@
 const { formatRepliesForOptions } = require('../format');
+const { saveUserProperties } = require('../api');
+
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
-module.exports = (controller, script) => {
+module.exports = (controller, scripts) => {
   const commonScript = controller.commonScript.introduction;
   let language = null;
   let phoneNumber = null;
@@ -39,11 +41,11 @@ module.exports = (controller, script) => {
             return;
           }
 
-          console.log("phone number!", response.text);
-
-          //TODO: validate phone number input
-          phoneNumber = response.text;
-          convo.next();
+					//TODO: validate phone number input
+          message.user_profile.phone_number = response.text;
+          message.user_profile.language = key;
+					return saveUserProperties(controller, message.user_profile)
+					.then(() => convo.next());
         }, {}, key);
 
         convo.addQuestion({

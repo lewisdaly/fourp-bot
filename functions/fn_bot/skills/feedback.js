@@ -1,9 +1,12 @@
 const api = require('../api');
+const { scriptForLanguage } = require('../util');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
-module.exports = (controller, script) => {
-  controller.hears(script.feedback.trigger, DEFAULT_EVENT, (bot, message) => {
+module.exports = (controller, scripts) => {
+  controller.hears(scripts.eng.feedback.trigger, DEFAULT_EVENT, (bot, message) => {
+    const script = scriptForLanguage(scripts, message.user_profile.language);
+
     bot.startConversation(message, (err, convo) => {
       let score = null;
       let improved = null;

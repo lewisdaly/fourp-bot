@@ -1,0 +1,156 @@
+# TODO: This is both defining a script and behaviour. In the future, we will separate the concerns
+
+
+phone:
+  ask: For starters, can you please share your phone number with me? It will help me to get in touch later on.
+  error: What you've entered does not look like a number. Please try again.
+  thanks: Thanks!
+
+menu_button:
+  text: Anything else I can help with?
+  quick_reply_title: Menu
+  redirect_to: menu
+
+menu:
+  trigger: menu
+  intro: "CEB SCRIPT IS WORKING!!!"
+  buttons:
+    - title: When is my next payout?
+      subtitle: I can estimate when your next payout is. I can also see if there are any delays.
+      button_title: When is my payout?
+      redirect_to: payout
+
+    - title: I'd like to report a problem.
+      subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
+      button_title: Make a secret report
+      redirect_to: report
+
+    - title: Help me calculate my payout.
+      subtitle: Calculate your payout, and what conditions you need to meet.
+      button_title: Calculate my payout.
+      redirect_to: calculate
+
+    - title: What's the latest 4Ps news?
+      subtitle: I can tell you the latest happenings with the 4ps and DSWD.
+      button_title: 4Ps news
+      redirect_to: news
+
+    - title: 4Pbot feedback
+      subtitle: Have I been helpful at all? Let me know.
+      button_title: Leave feedback
+      redirect_to: feedback
+
+payout:
+  trigger: payout
+  intro: Sure, I can help with that.
+  statement_1: I should let you know I'm still learning this feature, so my estimates may be a little wrong.
+  statement_2: Make sure to check with your parent leader about the payout day as well.
+  button: Where do you live?
+  reply: "The next scheduled payout for _barangay_ is between _date_1_ and _date_2_. \nHowever, it looks like payments might be delayed by up to _delay_time_"
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
+report:
+  trigger: report
+  intro: Sure, I can help with that.
+  statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
+  question_1:
+    text: "What type of problem are you having?\n\n1. Not receiving correct payment.\n2. Less than 3 of my kids are enrolled.\n3. My family details have not been updated yet.\n4. Other."
+    options:
+      - text: '1'
+        payload: incorrect_payment
+      - text: '2'
+        payload: enrollment
+      - text: '3'
+        payload: update
+      - text: '4'
+        payload: other
+  question_2:
+    text: Where do you live?
+    payload: location
+  question_3:
+    text: Tell us a few details about what the problem is.
+    paylod: details
+  reply: Thanks!
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
+calculate:
+  trigger: calculate
+  intro: ARR ME'HARTIES I'M A PIRATE
+  question_1:
+    text: Are you pregnant or expecting a baby?
+    options:
+      - text: Yes
+        payload: true
+      - text: No
+        payload: false
+  question_2:
+    text: How many children do you have from ages 0-5?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  question_3:
+    text: How many children in your household are in elementary school?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  question_4:
+    text: How many children in your household are in high school?
+    options:
+      - text: 0
+        payload: 0
+      - text: 1
+        payload: 1
+      - text: 2
+        payload: 2
+      # this is the max
+      - text: 3+
+        payload: 3
+  reply: Thanks! That's all we need to know.
+
+news:
+  trigger: news
+  intro: 'These are the 3 latest stories I have about 4Ps:'
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu
+
+feedback:
+  trigger: feedback
+  question_1:
+    text: How would you rate your experience with 4PBot?
+    options:
+      - text: '😣'
+        payload: -1
+      - text: '😐'
+        payload: 0
+      - text: '😀'
+        payload: 1
+
+  question_2: How could I be improved?
+  question_3: What are some other features you would like me to have?
+  reply: Thanks!
+  menu_button:
+    text: Anything else I can help with?
+    quick_reply_title: Menu
+    redirect_to: menu

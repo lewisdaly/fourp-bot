@@ -12,12 +12,32 @@ const FOURP_CALCULATE_PAY_URL = `${FIREBASE_BASE_URL}/calculatePay/`;
 module.exports = {
 
 	/**
+	 * payload:
+	 * language
+	 * phone_number
+	 * lat
+	 * lng
+	 */
+	saveUserProperties: (controller, payload) => {
+		return new Promise(function(resolve, reject) {
+
+			controller.storage.users.save(payload, (err) => {
+				if (err) {
+					reject(err);
+				}
+
+				resolve(true);
+			});
+		});
+	},
+
+	/**
 	 * Payload:
 	 * user_id: String
 	 * first_name: String
 	 * last_name: String
 	 * phone_number: String
-	 * langauge: String
+	 * language: String
 	 * report_type: String
 	 * description: String
 	 * lat: Float
@@ -26,7 +46,7 @@ module.exports = {
 	 * country: String
 	 * zip: Int
 	 */
-	report: (payload) => {	
+	report: (payload) => {
 		const options = {
       method: 'POST',
       uri: ZAPIER_REPORT_WEBHOOK,

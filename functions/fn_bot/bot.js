@@ -24,12 +24,24 @@ const controller = Botkit.facebookbot({
 
 const fbuser = FBUser({
     accessToken: process.env.page_token,
-    fields: ['first_name', 'last_name', 'locale', 'profile_pic','timezone','gender','is_payment_enabled'],
-    logLevel:'error',
-    expire: 24 * 60 * 60 * 1000, // refresh profile info every 24 hours
+    fields: ['first_name', 'last_name', 'locale', 'profile_pic','timezone','gender'],
+    logLevel: 'debug',
+    expire: 7 * 24 * 60 * 60 * 1000, // refresh profile info every week
     storage: storage
 });
-controller.middleware.receive.use(fbuser.receive)
+controller.middleware.receive.use(fbuser.receive);
+
+// controller.middleware.receive.use((bot, message, next) => {
+//   if (message.type !== 'message_received') {
+// 		return next();
+// 	}
+//
+//   console.log(message);
+//
+//   return controller.storage.users.get(message.user, (err, user_data) => {
+//     next();
+//   });
+// });
 
 const app = require(__dirname + '/components/express_webserver.js')(controller);
 require(__dirname + '/components/subscribe_events.js')(controller);
@@ -37,11 +49,13 @@ require(__dirname + '/components/subscribe_events.js')(controller);
 /* Load the scripts from yaml */
 
 //TODO: make this more flexible... how do we allow user to change languages for example?
-let script = null;
+let scripts = {};
 const skillsPath = require("path").join(__dirname, "skills");
 const scriptsPath = require("path").join(__dirname, "scripts");
 try {
-  script = yaml.safeLoad(fs.readFileSync(scriptsPath + '/eng_script.yaml'));
+  scripts.eng = yaml.safeLoad(fs.readFileSync(scriptsPath + '/eng_script.yaml'));
+  scripts.tgl = yaml.safeLoad(fs.readFileSync(scriptsPath + '/tgl_script.yaml'));
+  scripts.ceb = yaml.safeLoad(fs.readFileSync(scriptsPath + '/ceb_script.yaml'));
 	controller.commonScript = yaml.safeLoad(fs.readFileSync(scriptsPath + '/common_script.yaml'));
 } catch (err) {
   console.log(err);
@@ -50,7 +64,7 @@ try {
 /* Load the skills */
 fs.readdirSync(skillsPath)
 	.filter(file => file.indexOf('.js') > -1)
-	.forEach(file => require("./skills/" + file)(controller, script));
+	.forEach(file => require("./skills/" + file)(controller, scripts));
 
 
 module.exports = functions.https.onRequest(app);
