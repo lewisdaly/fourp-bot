@@ -5,6 +5,8 @@ const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, script) => {
   controller.hears(script.calculate.trigger, DEFAULT_EVENT, (bot, message) => {
+		console.log("BUILDING CALCULATE NOW!!!");
+
     bot.startConversation(message, (err, convo) => {
       let expectingBaby = null;
       let youngChildren = null;
