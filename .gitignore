@@ -1,4 +1,5 @@
 node_modules
 firebase-debug
 .env
+.env_fn_bot
 firebase-debug.log
