@@ -1,5 +1,6 @@
 const api = require('../api');
 const { scriptForLanguage, shouldSkipResponse } = require('../util');
+const { generateButtonsForTemplate } = require('../format');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
@@ -46,14 +47,13 @@ module.exports = (controller, scripts) => {
 
       convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'q1');
       convo.addMessage('{{vars.message}}','end');
-      convo.addQuestion({text: script.menu_button.text, quick_replies: [
-        {
-          content_type: "text",
-          title: script.menu_button.quick_reply_title,
-          payload: script.menu_button.redirect_to
-        }]
-      }, null, {}, 'end');
-
+			const menuMessage = {
+        attachment: {
+          type: "template",
+          payload: generateButtonsForTemplate(script.menu.buttons)
+        }
+      };
+      convo.addMessage(menuMessage, 'end');
     });
   });
 }

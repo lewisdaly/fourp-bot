@@ -119,7 +119,7 @@ module.exports = {
   getNewsForLanguage: (language) => {
     const options = {
       method: 'GET',
-      uri: FOURP_NEWS_URL,
+      uri: FOURP_GET_NEWS_URL,
       qs: {
         language,
       },

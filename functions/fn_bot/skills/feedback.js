@@ -1,10 +1,11 @@
 const api = require('../api');
 const { scriptForLanguage } = require('../util');
+const { generateButtonsForTemplate } = require('../format');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, scripts) => {
-  controller.hears(scripts.eng.calculate.trigger, DEFAULT_EVENT, (bot, message) => {
+  controller.hears(scripts.eng.feedback.trigger, DEFAULT_EVENT, (bot, message) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     bot.startConversation(message, (err, convo) => {
@@ -55,15 +56,13 @@ module.exports = (controller, scripts) => {
       convo.say(script.feedback.reply);
 
       //Maybe this could be a convo.end
-      convo.ask({text: script.feedback.menu_button.text, quick_replies: [
-          {
-            content_type: "text",
-            title: script.feedback.menu_button.quick_reply_title,
-            payload: script.feedback.menu_button.redirect_to
-          }
-        ]
-      });
-      convo.activate();
+      const menuMessage = {
+        attachment: {
+          type: "template",
+          payload: generateButtonsForTemplate(script.menu.buttons)
+        }
+      };
+      convo.addMessage(menuMessage);
     });
   });
 }

@@ -12,36 +12,38 @@ menu_button:
   redirect_to: menu
 
 menu:
-  trigger: menu
+  trigger:
+    - menu
   intro: "Here's some of the things you can ask me:"
   buttons:
-    - title: When is my next payout?
+    - title: When is my next payout? (payout)
       subtitle: I can estimate when your next payout is. I can also see if there are any delays.
       button_title: When is my payout?
       redirect_to: payout
 
-    - title: I'd like to report a problem.
+    - title: I'd like to report a problem. (report)
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
       redirect_to: report
 
-    - title: Help me calculate my payout.
+    - title: Help me calculate my payout. (calculate)
       subtitle: Calculate your payout, and what conditions you need to meet.
       button_title: Calculate my payout.
       redirect_to: calculate
 
-    - title: What's the latest 4Ps news?
+    - title: What's the latest 4Ps news? (news)
       subtitle: I can tell you the latest happenings with the 4ps and DSWD.
       button_title: 4Ps news
       redirect_to: news
 
-    - title: 4Pbot feedback
+    - title: 4Pbot feedback (feedback)
       subtitle: Have I been helpful at all? Let me know.
       button_title: Leave feedback
       redirect_to: feedback
 
 payout:
-  trigger: payout
+  trigger:
+    - payout
   intro: Sure, I can help with that.
   statement_1: I should let you know I'm still learning this feature, so my estimates may be a little wrong.
   statement_2: Make sure to check with your parent leader about the payout day as well.
@@ -53,7 +55,8 @@ payout:
     redirect_to: menu
 
 report:
-  trigger: report
+  trigger:
+    - report
   intro: Sure, I can help with that.
   statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
   question_1:
@@ -138,14 +141,14 @@ news:
 feedback:
   trigger: feedback
   question_1:
-    text: How would you rate your experience with 4PBot?
+    text: How would you rate your experience with 4PBot? 😣(1), 😐(2) or 😀(3)?
     options:
       - text: '😣'
-        payload: -1
-      - text: '😐'
-        payload: 0
-      - text: '😀'
         payload: 1
+      - text: '😐'
+        payload: 2
+      - text: '😀'
+        payload: 3
 
   question_2: How could I be improved?
   question_3: What are some other features you would like me to have?
