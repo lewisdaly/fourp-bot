@@ -1,5 +1,4 @@
 const functions = require('firebase-functions');
-const env = require('node-env-file');
 const Botkit = require('botkit');
 const FirebaseStorage = require('botkit-storage-firebase');
 const FBUser = require('botkit-middleware-fbuser');
@@ -7,15 +6,22 @@ const yaml = require('js-yaml');
 const fs   = require('fs');
 
 const { scriptForLanguage } = require('./util');
+const {
+  verify_token,
+  access_token,
+  studio_token,
+  studio_command_uri,
+  firebase_uri
+} = require('./env')(functions);
 
-env(__dirname + '/.env_fn_bot');
+console.log('firebase_uri is:', firebase_uri);
 
-const storage = FirebaseStorage({firebase_uri: process.env.firebase_uri})
+const storage = FirebaseStorage({firebase_uri})
 const controller = Botkit.facebookbot({
-    verify_token: process.env.verify_token,
-    access_token: process.env.page_token,
-    studio_token: process.env.studio_token,
-    studio_command_uri: process.env.studio_command_uri,
+    verify_token,
+    access_token,
+    studio_token,
+    studio_command_uri,
     storage,
 
 		//ref: https://github.com/howdyai/botkit/blob/master/docs/readme-facebook.md#require-delivery-confirmation

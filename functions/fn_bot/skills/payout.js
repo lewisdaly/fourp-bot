@@ -1,6 +1,5 @@
 const api = require('../api');
 const { scriptForLanguage, shouldSkipResponse } = require('../util');
-const { showMenu } = require('../format');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
@@ -33,7 +32,9 @@ module.exports = (controller, scripts) => {
 
         return api.getPayout(payload)
         .then(message => {
-          convo.sayFirst(message.text);
+          // convo.sayFirst(message.text);
+          // convo.next();
+          convo.setVar('message', message.text);
           convo.gotoThread('end');
         })
         .catch(err => {
@@ -45,9 +46,8 @@ module.exports = (controller, scripts) => {
       };
 
       convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'q1');
-      showMenu(bot, message, convo, script);
-
-      conovo.addQuestion({text: script.menu_button.text, quick_replies: [
+      convo.addMessage('{{vars.message}}','end');
+      convo.addQuestion({text: script.menu_button.text, quick_replies: [
         {
           content_type: "text",
           title: script.menu_button.quick_reply_title,

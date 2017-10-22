@@ -1,6 +1,6 @@
 
 
-// const showMenu = (bot, message, convo, script) => {
+const showMenu = (bot, message, convo, script) => {
 //   convo.on('end', (convo) => {
 //     console.log("ENDING CONVO");
 //     bot.reply(message, {text: script.menu_button.text, quick_replies: [
@@ -11,7 +11,7 @@
 //       }]
 //     });
 //   });
-// };
+};
 
 const formatRepliesForOptions = (options) => {
   return options.map(option => {
