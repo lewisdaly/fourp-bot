@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #Set up the firebase env variables
-source $DIR/../functions/fn_bot/.env_fn_bot;
+source $DIR/../functions/fn_bot/.env_fn_bot
 
 firebase functions:config:set \
   fn_bot.page_token="$page_token" \
