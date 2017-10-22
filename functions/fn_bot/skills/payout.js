@@ -1,6 +1,6 @@
 const api = require('../api');
-const { scriptForLanguage } = require('../util');
-
+const { scriptForLanguage, shouldSkipResponse } = require('../util');
+const { showMenu } = require('../format');
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
@@ -15,36 +15,30 @@ module.exports = (controller, scripts) => {
       convo.say(script.payout.statement_1);
       convo.say(script.payout.statement_2);
 
-      //TODO: conditionally ask this question (0.2)
+      //TODO: conditionally ask this question (v0.2)
 
-      convo.addQuestion({
-      	text: script.payout.button,
-      	quick_replies:[{ content_type:'location' }]
-      }, (response, convo) => {
-        if (response.attachments) {
-          const latLng = {
-        		lat: response.attachments[0].payload.coordinates.lat,
-        		lng: response.attachments[0].payload.coordinates.long
-        	};
-
-          const payload = {latLng};
-          //TODO: we should simulate typing here, as a loading indicator
-          return api.getPayout(payload)
-          .then(message => {
-            convo.sayFirst(message.text);
-            convo.next();
-          });
+      const handlerQ1 = (response, convo) => {
+        if(shouldSkipResponse(response)) {
+          return;
         }
-      }, {key: 'location'}, 'default');
 
-      convo.ask({text: script.menu_button.text, quick_replies: [
-          {
-            content_type: "text",
-            title: script.menu_button.quick_reply_title,
-            payload: script.menu_button.redirect_to
-          }
-        ]
-      });
+        const payload = {
+          zip_code: response.text,
+          language: message.user_profile.language
+        };
+
+        return api.getPayout(payload)
+        .then(message => {
+          convo.sayFirst(message.text);
+          convo.next();
+        })
+        .catch(err => {
+          console.log("error", err);
+        });
+      };
+
+      convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'default');
+      showMenu(convo, script);
     });
   });
 }

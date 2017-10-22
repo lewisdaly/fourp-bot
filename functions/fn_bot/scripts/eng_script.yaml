@@ -45,7 +45,7 @@ payout:
   intro: Sure, I can help with that.
   statement_1: I should let you know I'm still learning this feature, so my estimates may be a little wrong.
   statement_2: Make sure to check with your parent leader about the payout day as well.
-  button: Where do you live?
+  button: What is your zip code?
   reply: "The next scheduled payout for _barangay_ is between _date_1_ and _date_2_. \nHowever, it looks like payments might be delayed by up to _delay_time_"
   menu_button:
     text: Anything else I can help with?

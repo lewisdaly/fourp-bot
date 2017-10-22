@@ -1,5 +1,16 @@
 
 
+const showMenu = (convo, script) => {
+  convo.ask({text: script.menu_button.text, quick_replies: [
+      {
+        content_type: "text",
+        title: script.menu_button.quick_reply_title,
+        payload: script.menu_button.redirect_to
+      }
+    ]
+  });
+};
+
 const formatRepliesForOptions = (options) => {
   return options.map(option => {
     return {
@@ -33,5 +44,6 @@ const generateButtonsForTemplate = (buttons) => {
 
 module.exports = {
   formatRepliesForOptions,
-	generateButtonsForTemplate
+	generateButtonsForTemplate,
+	showMenu
 };
