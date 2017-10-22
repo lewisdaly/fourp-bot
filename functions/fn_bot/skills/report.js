@@ -69,17 +69,16 @@ module.exports = (controller, scripts) => {
           description = response.text;
 
           return api.report({
-            user_id: "N/A",
-            first_name: "N/A",
-            last_name: "N/A",
-            phone_number: "N/A",
-            langauge: "N/A",
+            user_id: message.user_profile.id,
+            first_name: message.user_profile.first_name,
+            last_name: message.user_profile.last_name,
+            phone_number: message.user_profile.phone_number,
+            langauge: message.user_profile.langauge,
             report_type: reportType,
             description: description,
-            zip_code: zipCode,
             address: "N/A",
             country: "N/A",
-            zip: "N/A",
+            zip: zipCode,
           })
           .then(message => convo.gotoThread('end'));
         }
