@@ -14,7 +14,7 @@ introduction:
       progress: I'm currently a work in progress, so please be patient with me. I'm also looking for any feedback you have along the way.
       phone_number: For starters, can you please share your phone number with me? It will help me to get in touch later on.
       phone_number_error: What you've entered does not look like a number. Please try again.
-      thanks: "Thanks!\nTake a look at the menu to see how I can help."
+      thanks: "Thanks!\n\nType 'menu' to access the menu and see how I can help."
       quick_reply_title: Menu
       redirect_to: menu
     tgl:

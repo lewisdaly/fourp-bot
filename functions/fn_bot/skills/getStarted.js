@@ -12,7 +12,7 @@ module.exports = (controller, scripts) => {
   let language = null;
   let phoneNumber = null;
 
-  controller.hears(['question'], 'message_received', function(bot,message) {
+controller.hears(['getStarted', 'Hi', 'hi'], DEFAULT_EVENT, (bot, message) => {
 
   // start a conversation to handle this response.
   bot.startConversation(message, (err,convo) => {
@@ -26,7 +26,6 @@ module.exports = (controller, scripts) => {
       {
         pattern: 'tgl',
         callback: function(response,convo) {
-          convo.sayFirst('you chose Tagalog');
           language = 'tgl';
           convo.gotoThread(language);
         }
@@ -34,7 +33,6 @@ module.exports = (controller, scripts) => {
       {
         pattern: 'ceb',
         callback: function(response,convo) {
-          convo.sayFirst('you chose Cebuano');
           language = 'ceb';
           convo.gotoThread(language);
         }
@@ -42,7 +40,6 @@ module.exports = (controller, scripts) => {
       {
         pattern: 'eng',
         callback: function(response,convo) {
-          convo.sayFirst('you chose English');
           language = 'eng';
           convo.gotoThread(language);
         }
@@ -90,11 +87,13 @@ module.exports = (controller, scripts) => {
               console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
             } catch (err) {
               console.log("error with number:", err);
-              convo.sayFirst('That does not look like a phone number');
-              convo.repeat();
-              convo.next();
-            }
+              convo.sayFirst(commonScript.threads[key].phone_number_error);
+              convo.gotoThread(key);
+              // convo.repeat();
+              // convo.next();
 
+							return;
+            }
 
             message.user_profile.phone_number = phoneUtil.format(phoneNumber, PNF.INTERNATIONAL);
             message.user_profile.language = key;
@@ -150,39 +149,41 @@ module.exports = (controller, scripts) => {
   //
   // });
 
-  controller.hears(['getStarted', 'Hi', 'hi'], DEFAULT_EVENT, (bot, message) => {
-    bot.startConversation(message, (err, convo) => {
-
-      //TODO: rediect elsewhere.
-      convo.addMessage({text: 'Enter tgl, ceb or eng', action: 'default'},'language_validation');
-
-      convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
-
-      const q1_replies = formatRepliesForOptions(commonScript.question_1.options);
-      convo.addQuestion({
-        text: commonScript.question_1.text,
-        quick_replies: q1_replies
-      }, (response, convo) => {
-
-				if (response.quick_reply && reponse.quick_reply.payload()) {
-					langauge = response.quick_reply.payload;
-				} else if (response.text) {
-					//TODO check that text matches payload, otherwise ask question again.
-					const validResponses = commonScript.question_1.options.map(options => options.payload);
-          if (validResponses.indexOf(response.text) < 0) {
-            return convo.gotoThread('language_validation');
-          }
-
-          language = response.text;
-				} else {
-					return;
-				}
-
-        convo.gotoThread(language);
-      });
-
-
-    });
-  });
+  // controller.hears(['getStarted', 'Hi', 'hi'], DEFAULT_EVENT, (bot, message) => {
+  //   bot.startConversation(message, (err, convo) => {
+	//
+  //     //TODO: rediect elsewhere.
+  //     convo.addMessage({text: 'Enter tgl, ceb or eng', action: 'default'}, 'language_validation');
+	//
+  //     convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
+	//
+  //     const q1_replies = formatRepliesForOptions(commonScript.question_1.options);
+  //     convo.addQuestion({
+  //       text: commonScript.question_1.text,
+  //       quick_replies: q1_replies
+  //     }, (response, convo) => {
+	//
+	// 			if (response.quick_reply && response.quick_reply.payload) {
+  //         console.log("quick_reply");
+	//
+	// 				language = response.quick_reply.payload;
+	// 			} else if (response.text) {
+	// 				//TODO check that text matches payload, otherwise ask question again.
+	// 				const validResponses = commonScript.question_1.options.map(options => options.payload);
+  //         if (validResponses.indexOf(response.text) < 0) {
+  //           return convo.gotoThread('language_validation');
+  //         }
+	//
+  //         language = response.text;
+	// 			} else {
+	// 				return;
+	// 			}
+	//
+  //       convo.gotoThread(language);
+  //     });
+	//
+	//
+  //   });
+  // });
 
 };
