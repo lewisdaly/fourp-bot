@@ -8,18 +8,20 @@ const fs   = require('fs');
 const { scriptForLanguage } = require('./util');
 const {
   verify_token,
-  access_token,
+  page_access_token,
   studio_token,
   studio_command_uri,
   firebase_uri
 } = require('./env')(functions);
 
 console.log('firebase_uri is:', firebase_uri);
+console.log('page_access_token:', page_access_token);
+console.log('verify_token:', verify_token);
 
-const storage = FirebaseStorage({firebase_uri})
+const storage = FirebaseStorage({firebase_uri});
 const controller = Botkit.facebookbot({
     verify_token,
-    access_token,
+    access_token: page_access_token,
     studio_token,
     studio_command_uri,
     storage,
@@ -31,7 +33,7 @@ const controller = Botkit.facebookbot({
 });
 
 const fbuser = FBUser({
-    accessToken: process.env.page_token,
+    accessToken: page_access_token,
     fields: ['first_name', 'last_name', 'locale', 'profile_pic','timezone','gender'],
     logLevel: 'debug',
     expire: 7 * 24 * 60 * 60 * 1000, // refresh profile info every week

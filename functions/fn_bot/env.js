@@ -2,7 +2,7 @@ const env = require('node-env-file');
 
 module.exports = (functions) => {
   let verify_token = null;
-  let access_token = null;
+  let page_access_token = null;
   let studio_token = null;
   let studio_command_uri = null;
   let firebase_uri = null;
@@ -13,7 +13,7 @@ module.exports = (functions) => {
     env(__dirname + '/.env_fn_bot');
 
     verify_token = process.env.verify_token;
-    access_token = process.env.access_token;
+    page_access_token = process.env.page_access_token;
     studio_token = process.env.studio_token;
     studio_command_uri = process.env.studio_command_uri;
     firebase_uri = process.env.firebase_uri;
@@ -30,7 +30,7 @@ module.exports = (functions) => {
 
   return {
     verify_token,
-    access_token,
+    page_access_token,
     studio_token,
     studio_command_uri,
     firebase_uri
