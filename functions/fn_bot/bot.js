@@ -6,6 +6,7 @@ const yaml = require('js-yaml');
 const fs   = require('fs');
 
 const { scriptForLanguage } = require('./util');
+const { generateButtonsForTemplate } = require('./format');
 const {
   verify_token,
   page_access_token,
@@ -64,21 +65,22 @@ fs.readdirSync(skillsPath)
 
 
 /* Default. Handle all other messages. This must be at the end. */
-// controller.hears('.*', 'message_received', (bot, message) => {
-//   console.log("Default Handler triggered");
-//   const script = scriptForLanguage(scripts, message.user_profile.language);
-//
-//   bot.startConversation(message, (err, convo) => {
-//     convo.ask({text: script.menu_button.text, quick_replies: [
-//         {
-//           content_type: "text",
-//           title: script.menu_button.quick_reply_title,
-//           payload: script.menu_button.redirect_to
-//         }
-//       ]
-//     });
-//   });
-// });
+controller.hears('.*', 'message_received', (bot, message) => {
+  console.log("Default Handler triggered");
+  const script = scriptForLanguage(scripts, message.user_profile.language);
+
+  bot.startConversation(message, (err, convo) => {
+    convo.ask({text: script.menu_button.text});
+    const menuMessage = {
+      attachment: {
+        type: "template",
+        payload: generateButtonsForTemplate(script.menu.buttons)
+      }
+    };
+    convo.addMessage(menuMessage);
+
+  });
+});
 
 
 module.exports = functions.https.onRequest(app);
