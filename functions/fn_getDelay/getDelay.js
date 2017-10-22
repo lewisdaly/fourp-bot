@@ -90,7 +90,7 @@ module.exports = (functions, admin) => {
       const averageLastReportMoment = averageMoments(reports);
       const estimatedNextDate = averageLastReportMoment.add('2', months);
 
-      return res.status(200).send(averageLastReportMoment);
+      return res.status(200).send({last_date: averageLastReportMoment, next_date:estimatedNextDate});
     })
     .catch(err => {
       //TODO: better error handling
