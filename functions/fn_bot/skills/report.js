@@ -1,5 +1,5 @@
 const api = require('../api');
-const { scriptForLanguage } = require('../util');
+const { scriptForLanguage, shouldSkipResponse } = require('../util');
 
 
 const DEFAULT_EVENT = 'message_received,facebook_postback';
@@ -11,10 +11,11 @@ module.exports = (controller, scripts) => {
     bot.startConversation(message, (err, convo) => {
       let description = null;
       let reportType = null;
-      let lat = null;
-      let lng = null;
+      let zipCode = null;
 
-      convo.say(`${script.report.intro}\n\n${script.report.statement_1}`);
+      convo.ask(`${script.report.intro}\n\n${script.report.statement_1}`, (response, convo) => {
+        convo.gotoThread('q1');
+      });
 
       //TODO: refactor to common class
       const q1_replies = script.report.question_1.options.map(option => {
@@ -24,27 +25,44 @@ module.exports = (controller, scripts) => {
           payload: option.payload
         };
       });
-
-      convo.addQuestion({text:script.report.question_1.text, quick_replies: q1_replies}, (response, convo) => {
-        if (response.text) {
-
-          reportType = response.quick_reply.payload;
-          convo.next();
+      const optionsQ1 = script.report.question_1.options.map(option => option.text);
+      const handlerQ1 = (response, convo) => {
+        if (shouldSkipResponse(response)) {
+          return;
         }
-      });
+
+        if (response.quick_reply && response.quick_reply.payload) {
+          //TODO: this is just the index, we need the actual text
+          reportType = response.quick_reply.payload;
+          return convo.gotoThread('q2');
+        }
+
+        if (response.text) {
+          //If the question is out of bounds, repeat!
+          if (optionsQ1.indexOf(response.text) === -1) {
+            console.log("Convo Error: response was not in range")
+            return convo.gotoThread('q1');
+          }
+
+          reportType = response.text;
+          return convo.gotoThread('q2');
+        }
+      }
+      convo.addQuestion({text:script.report.question_1.text, quick_replies: q1_replies}, handlerQ1, {}, 'q1');
 
       convo.addQuestion({
-      	text: script.report.question_2.text,
-      	quick_replies:[{ content_type:'location' }]
+      	text: script.report.question_2.text
       },
       (response, convo) => {
-        if (response.attachments) {
-          lat = response.attachments[0].payload.coordinates.lat;
-          lng = response.attachments[0].payload.coordinates.long;
-
-          convo.next();
+        if(shouldSkipResponse(response)) {
+          return;
         }
-      }, {key: 'location'}, 'default');
+
+        //We aren't bothering to validate this just yet
+        zipCode = response.text;
+        return convo.gotoThread('q3');
+
+      }, {}, 'q2');
 
       convo.addQuestion({text: script.report.question_3.text}, (response, convo) => {
         if (response.text) {
@@ -58,25 +76,24 @@ module.exports = (controller, scripts) => {
             langauge: "N/A",
             report_type: reportType,
             description: description,
-            lat: lat,
-            lng: lng,
+            zip_code: zipCode,
             address: "N/A",
             country: "N/A",
             zip: "N/A",
           })
-          .then(message => convo.next());
+          .then(message => convo.gotoThread('end'));
         }
-      });
+      }, {}, 'q3');
 
-      convo.say(script.report.reply);
-      convo.ask({text: script.report.menu_button.text, quick_replies: [
+      convo.addMessage({text:script.report.reply}, 'end');
+      convo.addMessage({text: script.report.menu_button.text, quick_replies: [
           {
             content_type: "text",
             title: script.report.menu_button.quick_reply_title,
             payload: script.report.menu_button.redirect_to
           }
         ]
-      });
+      }, 'end');
 
     });
   });

@@ -17,7 +17,6 @@ module.exports = (controller, scripts) => {
         convo.gotoThread('q1');
       };
       convo.addQuestion(script.payout.statement_2, handler, {}, 'default');
-      // convo.gotoThread('q1');
 
       //TODO: conditionally ask this question (v0.2)
       const handlerQ1 = (response, convo) => {

@@ -68,7 +68,7 @@ report:
       - text: '4'
         payload: other
   question_2:
-    text: Where do you live?
+    text: What is your zip code?
     payload: location
   question_3:
     text: Tell us a few details about what the problem is.
