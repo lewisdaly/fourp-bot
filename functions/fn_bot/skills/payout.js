@@ -34,7 +34,7 @@ module.exports = (controller, scripts) => {
         return api.getPayout(payload)
         .then(message => {
           convo.sayFirst(message.text);
-          convo.next();
+          convo.gotoThread('end');
         })
         .catch(err => {
           console.log("error", err.error);
@@ -45,7 +45,15 @@ module.exports = (controller, scripts) => {
       };
 
       convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'q1');
-      showMenu(convo, script);
+      showMenu(bot, message, convo, script);
+
+      conovo.addQuestion({text: script.menu_button.text, quick_replies: [
+        {
+          content_type: "text",
+          title: script.menu_button.quick_reply_title,
+          payload: script.menu_button.redirect_to
+        }]
+      }, null, {}, 'end');
 
     });
   });
