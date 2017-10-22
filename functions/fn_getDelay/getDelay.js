@@ -11,23 +11,6 @@ const paths = require('../common/definitions').paths;
 module.exports = (functions, admin) => {
   const app = express();
 
-
-  app.use(function (err, req, res, next) {
-    // specific for validation errors
-    if (err instanceof ev.ValidationError) {
-      console.log("isValidationError");
-      return res.status(err.status).json(err);
-    }
-
-    // other type of errors, it *might* also be a Runtime Error
-    // example handling
-    if (process.env.NODE_ENV !== 'production') {
-      return res.status(500).send(err.stack);
-    } else {
-      return res.status(500);
-    }
-  });
-
   const averageMoments = (moments) => {
     if (moments.length === 0) {
       return moment(0);
@@ -73,6 +56,7 @@ module.exports = (functions, admin) => {
    */
   app.get('*', validate(validation), (req, res) => {
     const { zip_code } = req.query;
+		let municipality = null;
 
     //TODO: lookup zip code in firebase & get province Id
     return admin.database().ref(`${paths.zip_code}/${zip_code}`).once('value')
@@ -82,15 +66,19 @@ module.exports = (functions, admin) => {
         return Promise.reject(new Error(`Could not find location with zip code: ${zip_code}`));
       }
 
+			municipality = value.municipality;
       return getReportsForProvinceId(value.province_id);
     })
     .then(reports => {
-      console.log(reports);
       //TODO: we need to figure out how to group general dates together, for now this works
       const averageLastReportMoment = averageMoments(reports);
-      const estimatedNextDate = averageLastReportMoment.add('2', months);
+      const estimatedNextDate = averageLastReportMoment.clone().add('2', 'month');
 
-      return res.status(200).send({last_date: averageLastReportMoment, next_date:estimatedNextDate});
+      return res.status(200).send({
+				last_date: averageLastReportMoment,
+				next_date:estimatedNextDate,
+				municipality
+			});
     })
     .catch(err => {
       //TODO: better error handling

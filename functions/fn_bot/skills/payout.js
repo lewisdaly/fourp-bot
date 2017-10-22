@@ -13,10 +13,14 @@ module.exports = (controller, scripts) => {
     bot.startConversation(message, (err, convo) => {
       convo.say(script.payout.intro);
       convo.say(script.payout.statement_1);
-      convo.say(script.payout.statement_2);
+
+      const handler = (response, convo) => {
+        convo.gotoThread('q1');
+      };
+      convo.addQuestion(script.payout.statement_2, handler, {}, 'default');
+      // convo.gotoThread('q1');
 
       //TODO: conditionally ask this question (v0.2)
-
       const handlerQ1 = (response, convo) => {
         if(shouldSkipResponse(response)) {
           return;
@@ -33,12 +37,16 @@ module.exports = (controller, scripts) => {
           convo.next();
         })
         .catch(err => {
-          console.log("error", err);
+          console.log("error", err.error);
+          //TODO: better error handling.
+					convo.sayFirst(err.error);
+          convo.gotoThread('q1');
         });
       };
 
-      convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'default');
+      convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'q1');
       showMenu(convo, script);
+
     });
   });
 }
