@@ -68,7 +68,9 @@ module.exports = {
 
 
 	/**
-	 * Unsure what this will look like just yet
+	 * payload:
+	 * language: String
+	 * zip_code: Filipino zip code
 	 */
 	getPayout: (payload) => {
 		return new Promise(function(resolve, reject) {
