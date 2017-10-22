@@ -17,6 +17,7 @@ curl "https://us-central1-fourp-bot.cloudfunctions.net/calculatePay/?expecting_b
 curl -X GET \
   'http://localhost:5000/fourp-bot/us-central1/getMessage/menu?langauge=ceb' \
 
+curl -X GET 'http://localhost:5000/fourp-bot/us-central1/getDelay/?langauge=ceb&zip_code=5000'
 
 curl -X POST \
     https://hooks.zapier.com/hooks/catch/2292424/i9l7nx/ \
