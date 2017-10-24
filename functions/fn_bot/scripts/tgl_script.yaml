@@ -1,63 +1,55 @@
-# TODO: This is both defining a script and behaviour. In the future, we will separate the concerns
-
-
-phone:
-  ask: For starters, can you please share your phone number with me? It will help me to get in touch later on.
-  error: What you've entered does not look like a number. Please try again.
-  thanks: Thanks!
-
 menu_button:
   text: Anything else I can help with?
   quick_reply_title: Menu
   redirect_to: menu
 
 menu:
-  trigger: menu
+  trigger:
+    - menu
   intro: "Mga bagay na pwedeng itanong sakin:"
   buttons:
-    - title: Kailan ang sunod na payout?
+    - title: Kailan ang sunod na payout? (payout)
       subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
       button_title: Kailan ang aking payout?
       redirect_to: payout
 
-    - title: I'd like to report a problem.
-      subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
-      button_title: Make a secret report
+    - title: Gusto kong magreport ng problema. (report)
+      subtitle: May problema ba sa pagtanggap ng iyong payout? O kulang ang ibinigay?
+      button_title: Gumawa ng sekretong report
       redirect_to: report
 
-    - title: Help me calculate my payout.
-      subtitle: Calculate your payout, and what conditions you need to meet.
-      button_title: Calculate my payout.
+    - title: Tulungan akong kalkulahin ang aking payout. (calculate)
+      subtitle: Kalkulahin iyong payout, at ang mga kondisyong kailangang gawin.
+      button_title: Kalkulahin aking payout.
       redirect_to: calculate
 
-    - title: What's the latest 4Ps news?
-      subtitle: I can tell you the latest happenings with the 4ps and DSWD.
-      button_title: 4Ps news
+    - title: Ano ang bagong balita sa 4Ps? (news)
+      subtitle: Maaari kitang sabihan sa mga bagong pangyayari sa 4Ps at DSWD.
+      button_title: 4Ps na Balita
       redirect_to: news
 
-    - title: 4Pbot feedback
-      subtitle: Have I been helpful at all? Let me know.
-      button_title: Leave feedback
+    - title: 4Pbot feedback (feedback)
+      subtitle: Nakatulong po ba ako? Ipaalam sa akin.
+      button_title: Mag-iwan ng feedback"
       redirect_to: feedback
 
+
 payout:
-  trigger: payout
-  intro: Sure, I can help with that.
-  statement_1: I should let you know I'm still learning this feature, so my estimates may be a little wrong.
+  trigger:
+    - payout
+  intro: Opo, Makakatulong ako niyan.
+  statement_1: Paalala ko muna sa iyo na ako'y nag-aaral pa lamang nito, kaya merong kunting mali sa pagkalkula.
   statement_2: Make sure to check with your parent leader about the payout day as well.
-  button: Where do you live?
-  reply: "The next scheduled payout for _barangay_ is between _date_1_ and _date_2_. \nHowever, it looks like payments might be delayed by up to _delay_time_"
-  menu_button:
-    text: Anything else I can help with?
-    quick_reply_title: Menu
-    redirect_to: menu
+  button: Ano ang iyong zip code?
+  reply: "Ang sunod na iskedyul sa payout para sa _barangay_ ay sa _date_1_ hanggang_date_2_.\n\nGayunman, maari pong maantala ang payout hanggang sa _delay_time_"
 
 report:
-  trigger: report
-  intro: Sure, I can help with that.
-  statement_1: Just to let you know, any complaints you make are private, and your personal information won't be shared with DSWD unless you give us permission.
+  trigger:
+    - report
+  intro: Opo, Makakatulong ako niyan.
+  statement_1: Para sa iyong kaalaman, ang iyong mga reklamo ay pribado, at ang iyong personal na impormasyon ay hindi ibabahagi sa DSWD maliban kung ipapahintulot po ninyo.
   question_1:
-    text: "What type of problem are you having?\n\n1. Not receiving correct payment.\n2. Less than 3 of my kids are enrolled.\n3. My family details have not been updated yet.\n4. Other."
+    text: "Anong po ang iyong problema?\n\n1.hindi nakakatanggap ng tamang halaga.\n2.mas mababa sa 3 sa aking mga anak ang na-enrol\n3.hindi na update ang mga detalye.\n4.iba pa"
     options:
       - text: '1'
         payload: incorrect_payment
@@ -68,29 +60,25 @@ report:
       - text: '4'
         payload: other
   question_2:
-    text: Where do you live?
+    text: Ano ang iyong zip code?
     payload: location
   question_3:
-    text: Tell us a few details about what the problem is.
+    text: Maari nyo po bang idetalye kung ano ang problema.
     paylod: details
-  reply: Thanks!
-  menu_button:
-    text: Anything else I can help with?
-    quick_reply_title: Menu
-    redirect_to: menu
+  reply: Salamat!
 
 calculate:
   trigger: calculate
-  intro: ARR ME'HARTIES I'M A PIRATE
+  intro: Maaari kong tantyahin ang matatanggap mo sa 4Ps. Sagutin lamang ang mga tanong na ito!
   question_1:
-    text: Are you pregnant or expecting a baby?
+    text: Ikaw ba ay buntis o malapit ng manganak?
     options:
-      - text: Yes
+      - text: Opo
         payload: true
-      - text: No
+      - text: Hindi
         payload: false
   question_2:
-    text: How many children do you have from ages 0-5?
+    text: Ilan ang mga anak mong may edad 0-5?
     options:
       - text: 0
         payload: 0
@@ -102,7 +90,7 @@ calculate:
       - text: 3+
         payload: 3
   question_3:
-    text: How many children in your household are in elementary school?
+    text: Ilan ang mga anak mong nasa elementarya?
     options:
       - text: 0
         payload: 0
@@ -114,7 +102,7 @@ calculate:
       - text: 3+
         payload: 3
   question_4:
-    text: How many children in your household are in high school?
+    text: Ilan ang mga anak mong nasa high school?
     options:
       - text: 0
         payload: 0
@@ -125,32 +113,24 @@ calculate:
       # this is the max
       - text: 3+
         payload: 3
-  reply: Thanks! That's all we need to know.
+  reply: Salamat! Iyon lang ang kailangan naming malaman.
 
 news:
   trigger: news
-  intro: 'These are the 3 latest stories I have about 4Ps:'
-  menu_button:
-    text: Anything else I can help with?
-    quick_reply_title: Menu
-    redirect_to: menu
+  intro: 'Ito ang 3 mga bagong istorya sa 4Ps:'
 
 feedback:
   trigger: feedback
   question_1:
-    text: How would you rate your experience with 4PBot?
+    text: Maari po bang i-rate ang iyong naranasan sa 4PBot? 😣(1), 😐(2) or 😀(3)?
     options:
       - text: '😣'
-        payload: -1
-      - text: '😐'
-        payload: 0
-      - text: '😀'
         payload: 1
+      - text: '😐'
+        payload: 2
+      - text: '😀'
+        payload: 3
 
-  question_2: How could I be improved?
-  question_3: What are some other features you would like me to have?
-  reply: Thanks!
-  menu_button:
-    text: Anything else I can help with?
-    quick_reply_title: Menu
-    redirect_to: menu
+  question_2: Paano pa ito i-improve?
+  question_3: Ano pa ang ibang mga feature na gusto mo sanang mailagay?
+  reply: Salamat!

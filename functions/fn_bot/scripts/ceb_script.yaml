@@ -6,50 +6,49 @@ menu_button:
 menu:
   trigger:
     - menu
-  intro: "Mga bagay na pwedeng itanong sakin:"
+  intro: "Mga butang nga pwede ipangutana nako:"
   buttons:
-    - title: Kailan ang sunod na payout? (payout)
-      subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
-      button_title: Kailan ang aking payout?
+    - title: Kanus-a ang sunod nga payout? (payout)
+      subtitle: Pwede nakong estemahon ang sunod mong payout.
+      button_title: Kanus-a ang akong payout?
       redirect_to: payout
 
-    - title: Gusto kong magreport ng problema. (report)
-      subtitle: May problema ba sa pagtanggap ng iyong payout? O kulang ang ibinigay?
-      button_title: Gumawa ng sekretong report
+    - title: Gusto nako mureport ug problema. (report)
+      subtitle: Aduna bay problema sa imong payout? O kulang ang gihatag?
+      button_title: Maghimo ug sekretong report.
       redirect_to: report
 
-    - title: Tulungan akong kalkulahin ang aking payout. (calculate)
-      subtitle: Kalkulahin iyong payout, at ang mga kondisyong kailangang gawin.
-      button_title: Kalkulahin aking payout.
+    - title: Tabangi ko ug kalkula sa akong payout. (calculate)
+      subtitle: Kalkulahon imong payout, ug ang mga kondisyon nga dapat himuon.
+      button_title: Kalkulahon akong payout.
       redirect_to: calculate
 
-    - title: Ano ang bagong balita sa 4Ps? (news)
-      subtitle: Maaari kitang sabihan sa mga bagong pangyayari sa 4Ps at DSWD.
-      button_title: 4Ps na Balita
+    - title: Unsa ang bag-ong balita sa 4Ps? (news)
+      subtitle: Pwede tikang sultian sa mga bag-ong mga panghitabo sa 4Ps ug DSWD.
+      button_title: Balita sa 4Ps
       redirect_to: news
 
     - title: 4Pbot feedback (feedback)
-      subtitle: Nakatulong po ba ako? Ipaalam sa akin.
-      button_title: Mag-iwan ng feedback"
+      subtitle: Nakatabang ba ko? Pahibaw-a ko.
+      button_title: Magbilin ug feedback
       redirect_to: feedback
-
 
 payout:
   trigger:
     - payout
-  intro: Opo, Makakatulong ako niyan.
-  statement_1: Paalala ko muna sa iyo na ako'y nag-aaral pa lamang nito, kaya merong kunting mali sa pagkalkula.
+  intro: Oo, Makatabang ko niana.
+  statement_1: Pahinumdom nako nimo nga nagtuon pa ko niini, ug aduna'y gamay nga sipyat sa pagkalkula.
   statement_2: Make sure to check with your parent leader about the payout day as well.
-  button: Ano ang iyong zip code?
-  reply: "Ang sunod na iskedyul sa payout para sa _barangay_ ay sa _date_1_ hanggang_date_2_.\n\nGayunman, maari pong maantala ang payout hanggang sa _delay_time_"
+  button: Unsa imong zip code?
+  reply: "Ang sunod nga iskedyul sa payout para sa _barangay_ kay sulod sa _date_1_hangtud_date_2_.\n\nHinuon, pwede usab nga ma delatar ang payout hangtud sa_delay_time_"
 
 report:
   trigger:
     - report
-  intro: Opo, Makakatulong ako niyan.
-  statement_1: Para sa iyong kaalaman, ang iyong mga reklamo ay pribado, at ang iyong personal na impormasyon ay hindi ibabahagi sa DSWD maliban kung ipapahintulot po ninyo.
+  intro: Oo, Makatabang ko niana.
+  statement_1: Alang sa imong kasayuran, ang imong reklamo pribado, ug ang imong personal nga impormasyon dili masayran sa DSWD gawas kon may pagtugot gikan nimo.
   question_1:
-    text: "Anong po ang iyong problema?\n\n1.hindi nakakatanggap ng tamang halaga.\n2.mas mababa sa 3 sa aking mga anak ang na-enrol\n3.hindi na update ang mga detalye.\n4.iba pa"
+    text: "Unsang klaseha imong problema?\n\n1. wala nakadawat ug saktong kantidad.\n2. mas ubos pa sa 3 sa akong anak ang na-enrol.\n3. wala pa gyud ma-update ang mga detalye.\n4. uban pa."
     options:
       - text: '1'
         payload: incorrect_payment
@@ -63,22 +62,22 @@ report:
     text: Ano ang iyong zip code?
     payload: location
   question_3:
-    text: Maari nyo po bang idetalye kung ano ang problema.
+    text: Pwede ba nimong i-detalye ang imong problema.
     paylod: details
   reply: Salamat!
 
 calculate:
   trigger: calculate
-  intro: Maaari kong tantyahin ang matatanggap mo sa 4Ps. Sagutin lamang ang mga tanong na ito!
+  intro: Pwede nakong bana-bana-on ang imong madawat sa 4Ps. Tubaga kini nga mga pangutana!
   question_1:
-    text: Ikaw ba ay buntis o malapit ng manganak?
+    text: Mabdos ka ba o hapit na manganak?
     options:
-      - text: Opo
+      - text: Oo
         payload: true
-      - text: Hindi
+      - text: Dili
         payload: false
   question_2:
-    text: Ilan ang mga anak mong may edad 0-5?
+    text: Pila man sa imong anak ang nag edad ug 0-5?
     options:
       - text: 0
         payload: 0
@@ -90,7 +89,7 @@ calculate:
       - text: 3+
         payload: 3
   question_3:
-    text: Ilan ang mga anak mong nasa elementarya?
+    text: Pila kabuok ang naa sa elementarya?
     options:
       - text: 0
         payload: 0
@@ -102,7 +101,7 @@ calculate:
       - text: 3+
         payload: 3
   question_4:
-    text: Ilan ang mga anak mong nasa high school?
+    text: Pila kabuok ang naa sa high school?
     options:
       - text: 0
         payload: 0
@@ -113,16 +112,16 @@ calculate:
       # this is the max
       - text: 3+
         payload: 3
-  reply: Salamat! Iyon lang ang kailangan naming malaman.
+  reply: Salamat! Mao lang to ang akong kinahanglan masayran.
 
 news:
   trigger: news
-  intro: 'Ito ang 3 mga bagong istorya sa 4Ps:'
+  intro: 'Mao kini ang 3 nga bag-ong istorya sa 4Ps:'
 
 feedback:
   trigger: feedback
   question_1:
-    text: Maari po bang i-rate ang iyong naranasan sa 4PBot? 😣(1), 😐(2) or 😀(3)?
+    text: Pwede ba nimong i-rate ang imong nasinati sa 4PBot? 😣(1), 😐(2) or 😀(3)?
     options:
       - text: '😣'
         payload: 1
@@ -131,6 +130,6 @@ feedback:
       - text: '😀'
         payload: 3
 
-  question_2: Paano pa ito i-improve?
-  question_3: Ano pa ang ibang mga feature na gusto mo sanang mailagay?
+  question_2: Usa-on pa kini pag-improve?
+  question_3: Unsa pa ang ubang mga butang nga gusto nimo mabutang diri?
   reply: Salamat!
