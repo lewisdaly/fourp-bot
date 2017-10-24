@@ -47,3 +47,8 @@ curl -X POST \
 ```
 ./scripts/setup_get_started.sh
 ```
+
+
+## Webhook url:
+
+https://us-central1-fourp-bot.cloudfunctions.net/bot/facebook/receive

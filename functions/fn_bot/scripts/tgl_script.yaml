@@ -39,7 +39,7 @@ payout:
     - payout
   intro: Opo, Makakatulong ako niyan.
   statement_1: Paalala ko muna sa iyo na ako'y nag-aaral pa lamang nito, kaya merong kunting mali sa pagkalkula.
-  statement_2: Make sure to check with your parent leader about the payout day as well.
+  statement_2: Pakisiguro po sa iyong parent leader tungkol din sa araw ng payout.
   button: Ano ang iyong zip code?
   reply: "Ang sunod na iskedyul sa payout para sa _barangay_ ay sa _date_1_ hanggang_date_2_.\n\nGayunman, maari pong maantala ang payout hanggang sa _delay_time_"
 
