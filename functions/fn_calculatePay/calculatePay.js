@@ -38,6 +38,8 @@ app.use(function (err, req, res, next) {
  *
  */
 app.get('*', validate(validation), (req, res) => {
+  const { language } = req.query;
+
   paymentParser(req.query)
   .then(({
     pregnant,
@@ -55,9 +57,16 @@ app.get('*', validate(validation), (req, res) => {
 
     const { x, y } = getPaymentFactors(elementarySchoolChildren, highSchoolChildren);
     const paymentEstimate = getPaymentEstimate(x, y);
-    const responseList = [{text:`We estimate your payment to be: ${paymentEstimate}p a month, up to ___ a year.`}];
+    const responseList = [];
+    const paymentResponse= {
+      eng: `We estimate your payment to be: P${paymentEstimate} a month.`,
+      tgl: `Tinatantiya naming makakatanggap ka ng: P${paymentEstimate} bawat buwan.`,
+      ceb: `Gibanabana namong makadawat ka ug: P${paymentEstimate} kada buwan.`
+    };
+    console.log(language);
+    responseList.push(paymentResponse[language]);
     getConditionsList(pregnant, youngChildren, elementarySchoolChildren, highSchoolChildren).forEach(condition => {
-      responseList.push({text: condition});
+      responseList.push(condition[language]);
     });
 
     res.status(200).send(formatMessage(responseList));

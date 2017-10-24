@@ -113,7 +113,7 @@ calculate:
       # this is the max
       - text: 3+
         payload: 3
-  reply: Salamat! Iyon lang ang kailangan naming malaman.
+  reply: Salamat!
 
 news:
   trigger: news

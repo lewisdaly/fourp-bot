@@ -47,13 +47,12 @@ module.exports = (controller, scripts) => {
 	            young_children: youngChildren,
 	            elementary_school_children: elementaryChildren,
 	            high_school_children: highChildren,
-	            //TODO: get language
-	            language: 'ceb'
+	            language: message.user_profile.language
 	          })
 	          .then(messages => {
 	            //TODO: find a better method, we iterate backwards to get in the correct order
 	            for (var i = messages.length -1; i >= 0; i--) {
-	              convo.sayFirst(messages[i].text);
+	              convo.sayFirst(messages[i]);
 	            };
 	            convo.next();
 	          });

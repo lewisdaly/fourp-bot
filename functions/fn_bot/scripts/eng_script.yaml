@@ -128,7 +128,7 @@ calculate:
       # this is the max
       - text: 3+
         payload: 3
-  reply: Thanks! That's all we need to know.
+  reply: Thanks!
 
 news:
   trigger: news

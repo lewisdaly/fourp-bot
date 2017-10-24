@@ -42,20 +42,40 @@ const getConditionsList = (pregnant, youngChildren, elementarySchoolChildren, hi
   const conditionsList = [];
 
   //Conditions for everyone:
-  conditionsList.push('You must attend the family development sessions, which include topics on responsible parenting, health, and nutrition.');
+  conditionsList.push({
+		eng: 'You must attend the family development sessions, which include topics on responsible parenting, health, and nutrition.',
+		tgl: 'Kailangan dumalo sa family development session, kung saan tutulong kung paano maging responsableng magulang, alagaan ang kalusugan at nutrisyon.',
+		ceb: 'Kinahanglan muapil sa family development session, diin mutabang sa pagkaresponsableng ginikanan, atimanon ang lawas ug nutrisyon.'
+	});
 
   if (pregnant) {
-    conditionsList.push('Pregnant women must avail pre- and post-natal care, and be attended during childbirth by a trained professional.');
+    conditionsList.push({
+			eng: 'Pregnant women must avail pre- and post-natal care, and be attended during childbirth by a trained professional.',
+			tgl: 'Kailangang sumailalim ang mga buntis sa pangangalagang medikal bago at matapos sila manganak. Kinakailangan ding isang propesyonal na kumadrona o doktor ang magpaanak sa kanila',
+			ceb: 'Kinahanglan magpa-check up gayud ang mga magbos sa wala pa manganak ug pagkahuman manganak. Kinahanglan nga usa ka propesyonal nga mananabang o doktor ang magpaanak nila.'
+		});
   }
 
   if (youngChildren > 0) {
-    conditionsList.push('Children aged 0-5 must receive regular preventive health check-ups and vaccines.');
-    conditionsList.push('Children aged 6-14 must receive deworming pills twice a year.');
+    conditionsList.push({
+			eng: 'Children aged 0-5 must receive regular preventive health check-ups and vaccines.',
+			tgl: 'Kailangang regular na magpa-check up at magpabakuna ang mga batang may edad 0 hanggang 5.',
+			ceb: 'Kinahanglan nga regular magpa-check up ug magpabakuna ang mga batang edad 0 hangtud 5.'
+		});
+    conditionsList.push({
+			eng: 'Children aged 6-14 must receive deworming pills twice a year.',
+			tgl: 'Kailangang uminom ng pampurga ng bulate sa tiyan ang kabataang may edad 6 hanggang 14 dalawang beses sa isang taon.',
+			ceb: 'Kinahanglan muinom ug pampurga sa bitok sa tiyan ang bata nga nag edad ug 6 hangtud 14 kaduha sa usa ka tuig.'
+		});
   }
 
   if (elementarySchoolChildren + highSchoolChildren > 0) {
     //This doesn't line up 100% with the question we are asking, but that's ok.
-    conditionsList.push('Children-beneficiaries aged 3-18 must enroll in school, and maintain an attendance of at least 85% of class days every month.');
+    conditionsList.push({
+			eng: 'Children-beneficiaries aged 3-18 must enroll in school, and maintain an attendance of at least 85% of class days every month.',
+			tgl: 'Kailangang mag-enrol sa eskuwelahan ang mga benepisyaryong kabataan na may edad 3 hanggang 18, at pumasok sa klase nang di-bababa sa 85% ng kabuuang bilang ng klase kada buwan.',
+			ceb: 'Kinahanglan mag-enrol sa eskwelahan ang mga benepisyaryong mga bata nga may edad 3 hangtud 18, ug musulod sa klase nga di moubos sa 85% ng kinatibuk-ang ihap sa klase sa kada bulan.'
+		});
   }
 
   return conditionsList;
