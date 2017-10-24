@@ -1,5 +1,5 @@
 menu_button:
-  text: Anything else I can help with?
+  text: Unsa'y lain nakong ikatabang?
   quick_reply_title: Menu
   redirect_to: menu
 
@@ -10,17 +10,17 @@ menu:
   buttons:
     - title: Kanus-a ang sunod nga payout? (payout)
       subtitle: Pwede nakong estemahon ang sunod mong payout.
-      button_title: Kanus-a ang akong payout?
+      button_title: Kanus-a akong payout?
       redirect_to: payout
 
     - title: Gusto nako mureport ug problema. (report)
       subtitle: Aduna bay problema sa imong payout? O kulang ang gihatag?
-      button_title: Maghimo ug sekretong report.
+      button_title: Sekretong mureport
       redirect_to: report
 
     - title: Tabangi ko ug kalkula sa akong payout. (calculate)
       subtitle: Kalkulahon imong payout, ug ang mga kondisyon nga dapat himuon.
-      button_title: Kalkulahon akong payout.
+      button_title: I-kalkula akong payout.
       redirect_to: calculate
 
     - title: Unsa ang bag-ong balita sa 4Ps? (news)
@@ -30,7 +30,7 @@ menu:
 
     - title: 4Pbot feedback (feedback)
       subtitle: Nakatabang ba ko? Pahibaw-a ko.
-      button_title: Magbilin ug feedback
+      button_title: Magbili'g feedback
       redirect_to: feedback
 
 payout:

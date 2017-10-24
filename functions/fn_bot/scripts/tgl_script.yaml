@@ -1,5 +1,5 @@
 menu_button:
-  text: Anything else I can help with?
+  text: Ano pa'ng aking maitulong?
   quick_reply_title: Menu
   redirect_to: menu
 
@@ -10,12 +10,12 @@ menu:
   buttons:
     - title: Kailan ang sunod na payout? (payout)
       subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
-      button_title: Kailan ang aking payout?
+      button_title: Kailan aking payout?
       redirect_to: payout
 
     - title: Gusto kong magreport ng problema. (report)
       subtitle: May problema ba sa pagtanggap ng iyong payout? O kulang ang ibinigay?
-      button_title: Gumawa ng sekretong report
+      button_title: Sekretong magreport
       redirect_to: report
 
     - title: Tulungan akong kalkulahin ang aking payout. (calculate)
@@ -30,7 +30,7 @@ menu:
 
     - title: 4Pbot feedback (feedback)
       subtitle: Nakatulong po ba ako? Ipaalam sa akin.
-      button_title: Mag-iwan ng feedback"
+      button_title: Iwanan ang feedback"
       redirect_to: feedback
 
 
