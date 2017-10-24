@@ -32,8 +32,6 @@ module.exports = (controller, scripts) => {
 
         return api.getPayout(payload)
         .then(message => {
-          // convo.sayFirst(message.text);
-          // convo.next();
           convo.setVar('message', message.text);
           convo.gotoThread('end');
         })
@@ -47,6 +45,7 @@ module.exports = (controller, scripts) => {
 
       convo.addQuestion({text: script.payout.button}, handlerQ1, {}, 'q1');
       convo.addMessage('{{vars.message}}','end');
+
 			const menuMessage = {
         attachment: {
           type: "template",

@@ -84,9 +84,19 @@ module.exports = {
 
 		return request(options)
 			.then(response => {
+				const municipality = response.municipality;
+				const lastDateString = moment(response.last_date).format('LL');
+				const nextDateString = moment(response.next_date).format('LL');
+
+				const script = {
+					eng: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
+					tgl: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
+					ceb: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
+				};
+
 				return {
-					text: `On average, the last payout for ${response.municipality} was ${moment(response.last_date).format('LL')}. We estimate the next payout to be around: ${moment(response.next_date).format('LL')}.`
-				}
+					text: script[payload.language]
+				};
 			});
 	},
 
