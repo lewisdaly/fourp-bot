@@ -90,8 +90,8 @@ module.exports = {
 
 				const script = {
 					eng: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
-					tgl: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
-					ceb: `On average, the last payout for ${municipality} was ${lastDateString}. We estimate the next payout to be around: ${nextDateString}.`,
+					tgl: `Kadalasan, ang huling payout sa ${municipality} ay noong ${lastDateString}. Tinatantya naming ang susunod na payout ay: ${nextDateString}.`,
+					ceb: `Kasagaran, ang miaging payout sa ${municipality} kay niadtong ${lastDateString}. Gibanabana namong ang sunod payout sa: ${nextDateString}.`,
 				};
 
 				return {

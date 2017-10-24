@@ -20,7 +20,7 @@ menu:
 
     - title: Tulungan akong kalkulahin ang aking payout. (calculate)
       subtitle: Kalkulahin iyong payout, at ang mga kondisyong kailangang gawin.
-      button_title: Kalkulahin aking payout.
+      button_title: Kalkulahin aking payout
       redirect_to: calculate
 
     - title: Ano ang bagong balita sa 4Ps? (news)
@@ -30,7 +30,7 @@ menu:
 
     - title: 4Pbot feedback (feedback)
       subtitle: Nakatulong po ba ako? Ipaalam sa akin.
-      button_title: Iwanan ang feedback"
+      button_title: Iwanan ang feedback
       redirect_to: feedback
 
 
