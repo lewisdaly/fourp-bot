@@ -21,13 +21,13 @@ introduction:
       progress: Kasalukuyan po akong denedebelop, kaya mangyaring magtiyaga sa akin. Naghahanap din ako ng anumang feedback na mayroon ka sa darating na mga araw.
       phone_number: Para sa baguhan, maaari mo bang ibahagi sa akin ang iyong numero? Makakatulong po ito upang makontak ka.
       phone_number_error: Ang inyong inilagay ay hindi numero. Pakisubukang muli.
-      thanks: Salamat!
+      thanks: "Salamat!\n\nTingnan ang menu upang makita kung ano ang aking maitutulong."
       quick_reply_title: Menu
       redirect_to: menu
     ceb:
       progress: Sa pagkakaron gidebelop pa ko, ug gipangayo nako ang dyutang pailob. Nangita usab ko ug feedback nimo niini nga mga panahon.
       phone_number: Para sa bag-ohay, pwede ba nga isulat diri imong numero? Makatabang kini aron makontak ka.
       phone_number_error: Murag dili numero ang imong gibutang. Palihug usba.
-      thanks: Salamat!
+      thanks: "Salamat!\n\nSusiha ang menu aron  makita kung unsa ang akong maitabang."
       quick_reply_title: Menu
       redirect_to: menu
