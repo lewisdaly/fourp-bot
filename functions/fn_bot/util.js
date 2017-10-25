@@ -2,8 +2,8 @@
 
 const scriptForLanguage = (script, language) => {
 	if (!language) {
-		console.log("ERROR: language is not set for user.");
-		langauge = 'tgl';
+		console.error("ERROR: language is not set for user.");
+		language = 'tgl';
 	}
   //the way this works may change later on.
   return script[language];
