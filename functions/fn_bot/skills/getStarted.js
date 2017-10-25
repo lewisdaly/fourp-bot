@@ -83,9 +83,11 @@ module.exports = (controller, scripts) => {
 	            // Parse number with country code. - for now assume Philippines
 	            let phoneNumber = null;
 	            try {
-	              phoneNumber = phoneUtil.parse(response.text, 'PHL');
+                const rawNumber = response.text.replace(/\b0/g, '+63');
+	              phoneNumber = phoneUtil.parse(rawNumber, 'PHL');
 	              console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
 	            } catch (err) {
+                console.error("ERROR parsing phone number: ", response.text);
 	              convo.sayFirst(commonScript.threads[key].phone_number_error);
 
 	              // convo.repeat();

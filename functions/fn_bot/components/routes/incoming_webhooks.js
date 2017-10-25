@@ -1,5 +1,11 @@
 module.exports = function(webserver, controller) {
 
+		webserver.get('*/keepalive', (req, res) => {
+			console.log("/keepalive called");
+			res.status(200);
+			res.send('ok');
+		});
+
     console.log('Configured POST /facebook/receive url for receiving events');
     webserver.post('*/facebook/receive', function(req, res) {
 
