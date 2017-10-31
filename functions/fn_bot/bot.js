@@ -66,7 +66,17 @@ fs.readdirSync(skillsPath)
 
 /* Default. Handle all other messages. This must be at the end. */
 controller.hears('.*', 'message_received', (bot, message) => {
-  console.log("Default Handler triggered");
+	//TODO: don't use implicit shit like this.
+	if (!message.user_profile.language) {
+
+    const commonScript = controller.commonScript.introduction;
+	  // start a conversation to handle this response.
+	  return bot.startConversation(message, (err,convo) => {
+	    convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
+      convo.say(commonScript.intro_hi);
+    });
+	}
+
   const script = scriptForLanguage(scripts, message.user_profile.language);
 
   bot.startConversation(message, (err, convo) => {
