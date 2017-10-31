@@ -14,29 +14,30 @@ menu_button:
 menu:
   trigger:
     - menu
+    - Menu
   intro: "Here's some of the things you can ask me:"
   buttons:
-    - title: When is my next payout? (payout)
+    - title: When is my next payout? (PAYOUT)
       subtitle: I can estimate when your next payout is. I can also see if there are any delays.
       button_title: When is my payout?
       redirect_to: payout
 
-    - title: I'd like to report a problem. (report)
+    - title: I'd like to report a problem. (REPORT)
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
       redirect_to: report
 
-    - title: Help me calculate my payout. (calculate)
+    - title: Help me calculate my payout. (CALC)
       subtitle: Calculate your payout, and what conditions you need to meet.
       button_title: Calculate my payout.
       redirect_to: calculate
 
-    - title: What's the latest 4Ps news? (news)
+    - title: What's the latest 4Ps news? (NEWS)
       subtitle: I can tell you the latest happenings with the 4ps and DSWD.
       button_title: 4Ps news
       redirect_to: news
 
-    - title: 4Pbot feedback (feedback)
+    - title: 4Pbot feedback (FEEDBACK)
       subtitle: Have I been helpful at all? Let me know.
       button_title: Leave feedback
       redirect_to: feedback
@@ -76,14 +77,12 @@ report:
   question_3:
     text: Tell us a few details about what the problem is.
     paylod: details
-  reply: Thanks!
-  menu_button:
-    text: Anything else I can help with?
-    quick_reply_title: Menu
-    redirect_to: menu
+  reply: Thanks! I've recorded your report.
 
 calculate:
-  trigger: calculate
+  trigger:
+    - calculate
+    - calc
   intro: I can help you to estimate your 4Ps payment. Just answer these few questions!
   question_1:
     text: Are you pregnant or expecting a baby?

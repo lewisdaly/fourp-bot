@@ -4,8 +4,7 @@ const { generateButtonsForTemplate } = require('../format');
 const DEFAULT_EVENT = 'message_received,facebook_postback';
 
 module.exports = (controller, scripts) => {
-  //TODO: move to facebook template interface
-  controller.hears([scripts.eng.menu.trigger, 'Menu'], DEFAULT_EVENT, (bot, message) => {
+  controller.hears(scripts.eng.menu.trigger, DEFAULT_EVENT, (bot, message) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
     bot.startConversation(message, function(err, convo) {
       convo.say(script.menu.intro);

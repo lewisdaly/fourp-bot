@@ -8,27 +8,27 @@ menu:
     - menu
   intro: "Mga butang nga pwede ipangutana nako:"
   buttons:
-    - title: Kanus-a ang sunod nga payout? (payout)
+    - title: Kanus-a ang sunod nga payout? (PAYOUT)
       subtitle: Pwede nakong estemahon ang sunod mong payout.
       button_title: Kanus-a akong payout?
       redirect_to: payout
 
-    - title: Gusto nako mureport ug problema. (report)
+    - title: Gusto nako mureport ug problema. (REPORT)
       subtitle: Aduna bay problema sa imong payout? O kulang ang gihatag?
       button_title: Sekretong mureport
       redirect_to: report
 
-    - title: Tabangi ko ug kalkula sa akong payout. (calculate)
+    - title: Tabangi ko ug kalkula sa akong payout. (CALC)
       subtitle: Kalkulahon imong payout, ug ang mga kondisyon nga dapat himuon.
       button_title: I-kalkula akong payout.
       redirect_to: calculate
 
-    - title: Unsa ang bag-ong balita sa 4Ps? (news)
+    - title: Unsa ang bag-ong balita sa 4Ps? (NEWS)
       subtitle: Pwede tikang sultian sa mga bag-ong mga panghitabo sa 4Ps ug DSWD.
       button_title: Balita sa 4Ps
       redirect_to: news
 
-    - title: 4Pbot feedback (feedback)
+    - title: 4Pbot feedback (FEEDBACK)
       subtitle: Nakatabang ba ko? Pahibaw-a ko.
       button_title: Magbili'g feedback
       redirect_to: feedback
@@ -64,10 +64,12 @@ report:
   question_3:
     text: Pwede ba nimong i-detalye ang imong problema.
     paylod: details
-  reply: Salamat!
+  reply: Thanks! I've recorded your report.
 
 calculate:
-  trigger: calculate
+  trigger:
+    - calculate
+    - calc
   intro: Pwede nakong bana-bana-on ang imong madawat sa 4Ps. Tubaga kini nga mga pangutana!
   question_1:
     text: Mabdos ka ba o hapit na manganak?

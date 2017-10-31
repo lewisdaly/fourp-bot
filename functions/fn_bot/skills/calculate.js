@@ -14,6 +14,8 @@ module.exports = (controller, scripts) => {
 	      let elementaryChildren = null;
 	      let highChildren = null;
 
+				convo.say(script.calculate.intro);
+
 	      const q1_replies = formatRepliesForOptions(script.calculate.question_1.options);
 	      convo.addQuestion({text:script.calculate.question_1.text, quick_replies: q1_replies}, (response, convo) => {
 	        if (response.text) {
