@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const api = require('../api');
 const { scriptForLanguage, shouldSkipResponse } = require('../util');
 const { generateButtonsForTemplate } = require('../format');
@@ -12,7 +14,7 @@ module.exports = (controller, scripts) => {
       let date = null;
       let isDelayed = null;
 
-      convo.ask(script.recordDate, (response, convo) => convo.gotoThread('q1'));
+      convo.addQuestion(script.recordDate.intro, (response, convo) => convo.gotoThread('q1'));
 
       const q1Handler = (response, convo) => {
         if (!response.text) {
@@ -22,7 +24,7 @@ module.exports = (controller, scripts) => {
         location = response.text;
         return convo.gotoThread('q2');
       }
-      convo.ask('Where do you live?', q1Handler, {}, 'q1');
+      convo.addQuestion(script.recordDate.question_1, q1Handler, {}, 'q1');
 
       const q2Handler = (response, convo) => {
         if (!response.text) {
@@ -32,7 +34,7 @@ module.exports = (controller, scripts) => {
         date = response.text;
         return convo.gotoThread('q3');
       }
-      convo.ask('What date was the payout?', q2Handler, {}, 'q2');
+      convo.addQuestion(script.recordDate.question_2, q2Handler, {}, 'q2');
 
       const q3Handler = (response, convo) => {
         if (!response.text) {
@@ -43,12 +45,24 @@ module.exports = (controller, scripts) => {
         return api.recordDate({
           location,
           date,
-          isDelayed
+          isDelayed,
+          recorded_at: moment().format(),
+          user_id: message.user_profile.id,
+          first_name: message.user_profile.first_name,
+          last_name: message.user_profile.last_name,
         })
         .then(message => convo.gotoThread('end'));
       }
-      convo.ask('Was this payout delayed?', q3Handler, {}, 'q3');
+      convo.addQuestion(script.recordDate.question_3, q3Handler, {}, 'q3');
 
+      convo.addMessage(script.recordDate.reply,'end');
+      const menuMessage = {
+        attachment: {
+          type: "template",
+          payload: generateButtonsForTemplate(script.menu.buttons)
+        }
+      };
+      convo.addMessage(menuMessage, 'end');
     });
   });
 }

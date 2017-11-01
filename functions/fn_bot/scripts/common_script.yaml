@@ -1,5 +1,6 @@
 introduction:
   intro: "Hi, __first_name__! Ako po si 4Pbot.\n\nAko po ay tutulong sa iyong mga katanungan at problema sa 4Ps."
+  #TODO: replace with tagalog version
   intro_hi: "Say HI to get started."
   question_1:
     text: "Anong lengguwahe ang gusto mo? (TGL)\n\nUnsa nga lengguwahe imong gusto? (CEB)\n\nWhat language would you like me to speak? (ENG)\n "

@@ -18,6 +18,11 @@ menu:
       button_title: Sekretong magreport
       redirect_to: report
 
+    - title: Record a payout date. (DATE)
+      subtitle: Was there a payout recently? Let me know!
+      button_title: Record payout date
+      redirect_to: date
+
     - title: Tulungan akong kalkulahin ang aking payout. (CALC)
       subtitle: Kalkulahin iyong payout, at ang mga kondisyong kailangang gawin.
       button_title: Kalkulahin aking payout
@@ -71,7 +76,11 @@ recordDate:
   trigger:
     - date
     - record
-  intro: "I'm gathering the dates of payouts to help predict the future delays."
+  intro: "I'm gathering the dates of payouts to help estimate future payout delays."
+  question_1: Where do you live?
+  question_2: What date was the payout?
+  question_3: Was the payout delayed or on time?
+  reply: Thanks! That's all I need to know
 
 calculate:
   trigger:
