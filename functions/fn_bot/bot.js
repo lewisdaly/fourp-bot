@@ -13,7 +13,7 @@ const {
   studio_token,
   studio_command_uri,
   firebase_uri
-} = require('./env')(functions);
+} = require('../common/env')(functions);
 
 console.log('firebase_uri is:', firebase_uri);
 console.log('page_access_token:', page_access_token);

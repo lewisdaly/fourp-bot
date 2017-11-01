@@ -10,4 +10,5 @@ export NVM_DIR="$HOME/.nvm"
 ## start the local firebase server
 node --version
 cd "$DIR"/../functions/
+export NODE_ENV=local
 firebase serve --only functions

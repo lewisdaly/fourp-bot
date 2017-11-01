@@ -1,5 +1,4 @@
 
-
 const scriptForLanguage = (script, language) => {
 	if (!language) {
 		console.error("ERROR: language is not set for user.");

@@ -2,7 +2,7 @@
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $DIR/../.env
+source $DIR/../functions/common/.env_production
 
 URL="https://graph.facebook.com/v2.6/me/messenger_profile?fields=get_started,greeting&access_token=$PAGE_ACCESS_TOKEN"
 curl -X GET "$URL"

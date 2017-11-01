@@ -66,6 +66,12 @@ report:
     paylod: details
   reply: Thanks! I've recorded your report.
 
+recordDate:
+  trigger:
+    - date
+    - record
+  intro: "I'm gathering the dates of payouts to help predict the future delays."
+  
 calculate:
   trigger:
     - calculate

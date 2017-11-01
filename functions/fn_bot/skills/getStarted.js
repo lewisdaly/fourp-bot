@@ -4,8 +4,7 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 const { formatRepliesForOptions } = require('../format');
 const { saveUserProperties } = require('../api');
 const { shouldSkipResponse } = require('../util');
-
-const DEFAULT_EVENT = 'message_received,facebook_postback';
+const { DEFAULT_EVENT } = require('../const');
 
 module.exports = (controller, scripts) => {
   const commonScript = controller.commonScript.introduction;

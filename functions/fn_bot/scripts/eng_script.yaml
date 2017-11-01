@@ -27,6 +27,11 @@ menu:
       button_title: Make a secret report
       redirect_to: report
 
+    - title: Record a payout date. (DATE)
+      subtitle: Was there a payout recently? Let me know!
+      button_title: Record payout date
+      redirect_to: date
+
     - title: Help me calculate my payout. (CALC)
       subtitle: Calculate your payout, and what conditions you need to meet.
       button_title: Calculate my payout.
@@ -78,6 +83,13 @@ report:
     text: Tell us a few details about what the problem is.
     paylod: details
   reply: Thanks! I've recorded your report.
+
+
+recordDate:
+  trigger:
+    - date
+    - record
+  intro: "I'm gathering the dates of payouts to help predict the future delays."
 
 calculate:
   trigger:

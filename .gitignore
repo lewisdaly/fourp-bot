@@ -1,5 +1,7 @@
 node_modules
 firebase-debug
 .env
-.env_fn_bot
+.env_local
+.env_production
+.env_common
 firebase-debug.log

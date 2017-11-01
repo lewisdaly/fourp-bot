@@ -1,8 +1,7 @@
 const api = require('../api');
 const { formatRepliesForOptions, generateButtonsForTemplate } = require('../format');
 const { scriptForLanguage } = require('../util');
-
-const DEFAULT_EVENT = 'message_received,facebook_postback';
+const { DEFAULT_EVENT } = require('../const');
 
 module.exports = (controller, scripts) => {
   controller.hears(scripts.eng.calculate.trigger, DEFAULT_EVENT, (bot, message) => {

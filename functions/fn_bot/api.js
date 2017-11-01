@@ -5,6 +5,7 @@ const moment = require('moment');
 
 const ZAPIER_FEEDBACK_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l15z/';
 const ZAPIER_REPORT_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/i9l7nx/';
+const ZAPIER_RECORD_DATE_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/2292424/ix0n6r/';
 
 const FIREBASE_BASE_URL = 'https://us-central1-fourp-bot.cloudfunctions.net';
 const FOURP_GET_NEWS_URL = `${FIREBASE_BASE_URL}/getNews/`;
@@ -12,6 +13,34 @@ const FOURP_CALCULATE_PAY_URL = `${FIREBASE_BASE_URL}/calculatePay/`;
 const FOURP_GET_DELAY_URL = `${FIREBASE_BASE_URL}/getDelay/`;
 
 module.exports = {
+
+	/**
+	 * Submit a date recording. This is raw, and will need further processing
+	 * Payload:
+	 * location,
+	 * date,
+	 * isDelayed
+	 */
+
+	recordDate: (payload) => {
+		const options = {
+      method: 'POST',
+      uri: ZAPIER_RECORD_DATE_WEBHOOK,
+      body: payload,
+      json: true
+    };
+
+    return request(options)
+    .then(response => {
+      console.log(response);
+			return response;
+    })
+    .catch(err => {
+      console.log(err);
+      return Promise.reject(err);
+    });
+
+	},
 
 	/**
 	 * payload:

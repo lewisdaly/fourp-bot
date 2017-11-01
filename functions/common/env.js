@@ -1,6 +1,8 @@
 const env = require('node-env-file');
 
 module.exports = (functions) => {
+	console.log('node_env:', process.env.NODE_ENV);
+
   let verify_token = null;
   let page_access_token = null;
   let studio_token = null;
@@ -10,7 +12,7 @@ module.exports = (functions) => {
   //TODO: not ideal. Don't infer, Lewis.
   // if (!functions.config().verify_token) {
   //   console.log("not running in firebase");
-    env(__dirname + '/.env_fn_bot');
+    env(__dirname + '/../common/.env_common');
 
     verify_token = process.env.verify_token;
     page_access_token = process.env.page_access_token;
