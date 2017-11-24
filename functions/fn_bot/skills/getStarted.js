@@ -1,9 +1,9 @@
 var PNF = require('google-libphonenumber').PhoneNumberFormat;
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
-const { formatRepliesForOptions } = require('../format');
+const { formatRepliesForOptions, generateButtonsForTemplate } = require('../format');
 const { saveUserProperties } = require('../api');
-const { shouldSkipResponse } = require('../util');
+const { scriptForLanguage, shouldSkipResponse } = require('../util');
 const { DEFAULT_EVENT } = require('../const');
 
 module.exports = (controller, scripts) => {
@@ -11,9 +11,14 @@ module.exports = (controller, scripts) => {
   let language = null;
   let phoneNumber = null;
 
-	controller.hears(['getStarted', 'Hi', 'hi'], DEFAULT_EVENT, (bot, message) => {
+	controller.hears(['getStarted', 'change language'], DEFAULT_EVENT, (bot, message) => {
 
-	  // start a conversation to handle this response.
+		//if the user has already set their language, just present the menu. This prevents circular conversations
+    if (message.user_profile.language) {
+      console.warn('getStarted triggered, when langauge was already set. Presenting menu.');
+    }
+
+	  // start the get started conversation
 	  bot.startConversation(message, (err,convo) => {
 	    convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
 	    const question = {

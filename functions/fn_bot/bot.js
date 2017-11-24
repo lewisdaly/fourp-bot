@@ -68,6 +68,7 @@ fs.readdirSync(skillsPath)
 controller.hears('.*', 'message_received', (bot, message) => {
 	//TODO: don't use implicit shit like this.
 	if (!message.user_profile.language) {
+		console.warn('ERROR: language is not set for user after getStarted section');
 
     const commonScript = controller.commonScript.introduction;
 	  // start a conversation to handle this response.
