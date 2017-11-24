@@ -15,10 +15,6 @@ const {
   firebase_uri
 } = require('../common/env')(functions);
 
-console.log('firebase_uri is:', firebase_uri);
-console.log('page_access_token:', page_access_token);
-console.log('verify_token:', verify_token);
-
 const storage = FirebaseStorage({firebase_uri});
 const controller = Botkit.facebookbot({
     verify_token,
@@ -26,19 +22,23 @@ const controller = Botkit.facebookbot({
     studio_token,
     studio_command_uri,
     storage,
-
-		//ref: https://github.com/howdyai/botkit/blob/master/docs/readme-facebook.md#require-delivery-confirmation
-    // Don't think we need these:
-		// require_delivery: true,
-    // receive_via_postback: true,
 });
 
 const fbuser = FBUser({
     accessToken: page_access_token,
-    fields: ['first_name', 'last_name', 'locale', 'profile_pic','timezone','gender'],
+    fields: [
+			'first_name',
+			'last_name',
+			'locale',
+			'profile_pic',
+			'timezone',
+			'gender',
+			'address',
+			'religion'
+		],
     logLevel: 'debug',
     expire: 7 * 24 * 60 * 60 * 1000, // refresh profile info every week
-    storage: storage
+    storage
 });
 controller.middleware.receive.use(fbuser.receive);
 

@@ -18,9 +18,9 @@ menu:
       button_title: Sekretong magreport
       redirect_to: report
 
-    - title: Record a payout date. (DATE)
-      subtitle: Was there a payout recently? Let me know!
-      button_title: Record payout date
+    - title: I-rekord ang petsa ng payout. (DATE)
+      subtitle: Bago lang ba nagpayout? Ipaalam sakin!
+      button_title: I-rekord petsa ng payout
       redirect_to: date
 
     - title: Tulungan akong kalkulahin ang aking payout. (CALC)
@@ -70,17 +70,17 @@ report:
   question_3:
     text: Maari nyo po bang idetalye kung ano ang problema.
     paylod: details
-  reply: Thanks! I've recorded your report.
+  reply: Salamat! Narekord ko ang iyong report.
 
 recordDate:
   trigger:
     - date
     - record
-  intro: "I'm gathering the dates of payouts to help estimate future payout delays."
-  question_1: Where do you live?
-  question_2: What date was the payout?
-  question_3: Was the payout delayed or on time?
-  reply: Thanks! That's all I need to know
+  intro: Iniipon ko ang mga petsa ng payout upang makalkula ang antalang payout sa hinaharap.
+  question_1: Saan ka nakatira?
+  question_2: Kailan ang petsa ng payout?
+  question_3: Naantala ba o saktong petsa ang payout?
+  reply: Salamat! Iyan lang ang kailangan kong malaman
 
 calculate:
   trigger:

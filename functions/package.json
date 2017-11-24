@@ -9,6 +9,7 @@
     "dashbot": "0.7.4",
     "express": "^4.16.2",
     "express-validation": "^1.0.2",
+    "firebase": "^4.6.2",
     "firebase-admin": "^5.4.2",
     "firebase-functions": "^0.7.1",
     "google-libphonenumber": "^3.0.6",
