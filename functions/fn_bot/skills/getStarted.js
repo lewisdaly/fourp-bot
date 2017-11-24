@@ -11,7 +11,7 @@ module.exports = (controller, scripts) => {
   let language = null;
   let phoneNumber = null;
 
-	controller.hears(['getStarted', 'change language'], DEFAULT_EVENT, (bot, message) => {
+	controller.hears(['getStarted', 'HELLO', 'hello'], DEFAULT_EVENT, (bot, message) => {
 
 		//if the user has already set their language, just present the menu. This prevents circular conversations
     if (message.user_profile.language) {
@@ -87,7 +87,16 @@ module.exports = (controller, scripts) => {
 	            // Parse number with country code. - for now assume Philippines
 	            let phoneNumber = null;
 	            try {
-                const rawNumber = response.text.replace(/\b0/g, '+63');
+                let rawNumber = response.text.replace(/\b0/g, '+63');
+                console.log('rawNumber is', rawNumber);
+                if (response.text.toLowerCase().indexOf('skip') > -1) {
+                  console.warn("user didn't provide number");
+                  //just set a dummy number
+                  rawNumber = '+63404404404';
+                }
+
+                console.log('rawNumber is', rawNumber);
+
 	              phoneNumber = phoneUtil.parse(rawNumber, 'PHL');
 	              console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
 	            } catch (err) {

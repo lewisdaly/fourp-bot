@@ -33,8 +33,6 @@ const fbuser = FBUser({
 			'profile_pic',
 			'timezone',
 			'gender',
-			'address',
-			'religion'
 		],
     logLevel: 'debug',
     expire: 7 * 24 * 60 * 60 * 1000, // refresh profile info every week

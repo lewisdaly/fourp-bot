@@ -7,6 +7,7 @@ module.exports = (functions) => {
 		case 'local':
 		case 'production':
 			envFilename = `.env_${process.env.NODE_ENV}`;
+			console.warn(`loading environment from: ${envFilename}`);
 			break;
 		default:
 			console.warn('WARNING: NODE_ENV not set. defaulting to production');
