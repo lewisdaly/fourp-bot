@@ -16,9 +16,6 @@ module.exports = (controller, scripts) => {
         language: ''
       };
 
-			// create the validation_error thread
-			convo.addMessage('This is a validation error.', 'validation_error');
-			convo.addMessage('I am sorry, your data is wrong!', 'validation_error');
 			convo.addMessage(commonScript.intro, 'default');
 
       const question = {
@@ -42,6 +39,7 @@ module.exports = (controller, scripts) => {
       });
 
       //Handle quick replies
+      let languageQuestionFailureCount = 0;
       handlerQ1.push({
         default: true,
         callback: function(response, convo) {
@@ -56,6 +54,19 @@ module.exports = (controller, scripts) => {
             message.user_profile.language = language;
             return saveUserProperties(controller, message.user_profile)
             .then(() => convo.next());
+          }
+
+          languageQuestionFailureCount += 1;
+
+          //If the user can't get this, default to tagalog
+          if (languageQuestionFailureCount >= 2) {
+            const language = 'tgl';
+
+            convo.setVar('threads', commonScript.threads[language]);
+            message.user_profile.language = language;
+            return saveUserProperties(controller, message.user_profile)
+            .then(() => convo.next());
+            return convo.next();
           }
 
           //workaround for silentRepeat ending convo. Ref: https://github.com/howdyai/botkit/issues/318
