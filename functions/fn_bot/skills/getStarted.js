@@ -13,9 +13,8 @@ module.exports = (controller, scripts) => {
 
 	controller.hears(['getStarted', 'HELLO', 'hello'], DEFAULT_EVENT, (bot, message) => {
 
-		//if the user has already set their language, just present the menu. This prevents circular conversations
     if (message.user_profile.language) {
-      console.warn('getStarted triggered, when langauge was already set. Presenting menu.');
+      console.warn('getStarted triggered, when langauge was already set.');
     }
 
 	  // start the get started conversation
@@ -70,7 +69,7 @@ module.exports = (controller, scripts) => {
 
 	    //Build a separate thread for each langauge.
 	    Object.keys(commonScript.threads).forEach(key => {
-	      convo.addMessage(commonScript.threads[key].progress, key);
+	      // convo.addQuestion(commonScript.threads[key].progress, (response, convo) => convo.gotoThread(key + '_number'), {}, key);
 
 	      const question2 = {
 	        text: commonScript.threads[key].phone_number
@@ -88,26 +87,24 @@ module.exports = (controller, scripts) => {
 	            let phoneNumber = null;
 	            try {
                 let rawNumber = response.text.replace(/\b0/g, '+63');
-                console.log('rawNumber is', rawNumber);
                 if (response.text.toLowerCase().indexOf('skip') > -1) {
                   console.warn("user didn't provide number");
                   //just set a dummy number
                   rawNumber = '+63404404404';
                 }
 
-                console.log('rawNumber is', rawNumber);
-
 	              phoneNumber = phoneUtil.parse(rawNumber, 'PHL');
 	              console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
 	            } catch (err) {
                 console.error("ERROR parsing phone number: ", response.text);
-	              convo.sayFirst(commonScript.threads[key].phone_number_error);
+	              // convo.sayFirst(commonScript.threads[key].phone_number_error);
+								// convo.next();
 
 	              // convo.repeat();
 	              // convo.next();
 								//TODO: For some reson, convo.repeat() first goes to the menu, and then repeats the question.
 								//This is a quick fix for now, but we will need to resolve it later.
-								convo.gotoThread(key);
+								convo.gotoThread(key + '_error');
 
 								return;
 	            }
@@ -120,8 +117,26 @@ module.exports = (controller, scripts) => {
 	        }
 	      ];
 
+				const handlerQ2_error = [
+					{
+						default: true,
+						callback: (response, convo) => {
+							if (shouldSkipResponse(response)) {
+	              return;
+	            }
+
+							return convo.gotoThread(key + '_number');
+						}
+					}
+				];
+
 	      convo.addQuestion(question2, handlerQ2, {}, key);
-	      //TODO: load the actual menu.
+        convo.addMessage({
+          text: commonScript.threads[key].phone_number_error,
+          action: key + '_number',
+        },key + '_error');
+				// convo.addQuestion(commonScript.threads[key].phone_number_error, handlerQ2_error, {}, key + '_error');
+
 	      convo.addQuestion({
 	        text: commonScript.threads[key].thanks,
 	        quick_replies: [
