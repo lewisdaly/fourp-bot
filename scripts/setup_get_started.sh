@@ -13,7 +13,7 @@ curl -X GET "$URL" || exit 1
 
 URL="https://graph.facebook.com/v2.6/me/messenger_profile?access_token=$page_access_token"
 curl -X POST -H "Content-Type: application/json" -d '{
-  "get_started": {"payload":"getStarted"},
+  "get_started": {"payload":"hello"},
 	"persistent_menu": [{
 		"locale":"default",
     "composer_input_disabled": false,

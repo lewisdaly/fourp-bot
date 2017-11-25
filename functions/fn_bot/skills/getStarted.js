@@ -10,7 +10,7 @@ module.exports = (controller, scripts) => {
   const commonScript = controller.commonScript.introduction;
 
 	controller.hears(['getStarted', 'Get Started', 'hello', 'HELLO'], DEFAULT_EVENT, (bot, message) => {
-		bot.createConversation(message, function(err, convo) {
+		bot.createConversation(message, (err, convo) => {
       const userPropertiesToSave = {
         phone_number: '',
         language: ''
