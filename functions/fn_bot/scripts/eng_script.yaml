@@ -14,20 +14,20 @@ menu:
     - Menu
   intro: "Here's some of the things you can ask me:"
   buttons:
-    - title: When is my next payout? (PAYOUT)
-      subtitle: I can estimate when your next payout is. I can also see if there are any delays.
-      button_title: When is my payout?
-      redirect_to: payout
+    # - title: When is my next payout? (PAYOUT)
+    #   subtitle: I can estimate when your next payout is. I can also see if there are any delays.
+    #   button_title: When is my payout?
+    #   redirect_to: payout
+    - title: Record a payout date. (DATE)
+      subtitle: Was there a payout recently? Let me know!
+      button_title: Record payout date
+      redirect_to: date
 
     - title: I'd like to report a problem. (REPORT)
       subtitle: Having trouble receiving your payout? Or are you not getting paid enough?
       button_title: Make a secret report
       redirect_to: report
 
-    - title: Record a payout date. (DATE)
-      subtitle: Was there a payout recently? Let me know!
-      button_title: Record payout date
-      redirect_to: date
 
     - title: Help me calculate my payout. (CALC)
       subtitle: Calculate your payout, and what conditions you need to meet.

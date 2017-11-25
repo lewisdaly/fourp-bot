@@ -78,7 +78,7 @@ module.exports = (controller, scripts) => {
 
 
 	    convo.addQuestion(question, handlerQ1, {}, 'default');
-      convo.addMessage('{{vars.threads.progress}}.', 'default');
+      convo.addMessage('{{& vars.threads.progress}}.', 'default');
 
       let numberQuestionFailCount = 0;
 
@@ -124,7 +124,7 @@ module.exports = (controller, scripts) => {
         }
       ];
 
-      convo.addQuestion('{{vars.threads.phone_number}}', handlerQ2, {}, 'default');
+      convo.addQuestion('{{& vars.threads.phone_number}}', handlerQ2, {}, 'default');
       // convo.addMessage('{{vars.threads.thanks}}', 'default');
 
       convo.addMessage({

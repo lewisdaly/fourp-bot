@@ -3,7 +3,6 @@ introduction:
   intro_hi: "Para simulan i-type ang HELLO"
   question_1:
     text: "Anong lengguwahe ang gusto mo? (TGL)\n\nUnsa nga lengguwahe imong gusto? (CEB)\n\nWhat language would you like me to speak? (ENG)\n "
-    #TODO: translate
     error: "Type TGL CEB or ENG only po"
     options:
       - text: 'Tagalog'
@@ -14,7 +13,7 @@ introduction:
         payload: eng
   threads:
     eng:
-      progress: I"'"m currently a work in progress, so please be patient with me. I\'m also looking for any feedback you have along the way.
+      progress: I'm currently a work in progress, so please be patient with me. I'm also looking for any feedback you have along the way.
       phone_number: For starters, can you please share your phone number with me? It will help me to get in touch later on. Say SKIP if you don't want to give me your number.
       phone_number_error: Hmm... That doesn't look like a number. Please try again or say SKIP if you don't want to give me your number.
       thanks: "Thanks!\n\nType MENU to access the menu and see how I can help."

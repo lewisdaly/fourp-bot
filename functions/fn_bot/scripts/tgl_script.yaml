@@ -8,20 +8,20 @@ menu:
     - menu
   intro: "Mga bagay na pwedeng itanong sakin:"
   buttons:
-    - title: Kailan ang sunod na payout? (PAYOUT)
-      subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
-      button_title: Kailan aking payout?
-      redirect_to: payout
-
-    - title: Gusto kong magreport ng problema. (REPORT)
-      subtitle: May problema ba sa pagtanggap ng iyong payout? O kulang ang ibinigay?
-      button_title: Sekretong magreport
-      redirect_to: report
+    # - title: Kailan ang sunod na payout? (PAYOUT)
+    #   subtitle: Pwede kong kalkulahin ang sunod mong payout. Inaalam ko rin kung merong antala.
+    #   button_title: Kailan aking payout?
+    #   redirect_to: payout
 
     - title: I-rekord ang petsa ng payout. (DATE)
       subtitle: Bago lang ba nagpayout? Ipaalam sakin!
       button_title: I-rekord petsa ng payout
       redirect_to: date
+
+    - title: Gusto kong magreport ng problema. (REPORT)
+      subtitle: May problema ba sa pagtanggap ng iyong payout? O kulang ang ibinigay?
+      button_title: Sekretong magreport
+      redirect_to: report
 
     - title: Tulungan akong kalkulahin ang aking payout. (CALC)
       subtitle: Kalkulahin iyong payout, at ang mga kondisyong kailangang gawin.

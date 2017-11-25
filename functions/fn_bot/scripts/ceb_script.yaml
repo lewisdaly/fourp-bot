@@ -8,20 +8,20 @@ menu:
     - menu
   intro: "Mga butang nga pwede ipangutana nako:"
   buttons:
-    - title: Kanus-a ang sunod nga payout? (PAYOUT)
-      subtitle: Pwede nakong estemahon ang sunod mong payout.
-      button_title: Kanus-a akong payout?
-      redirect_to: payout
-
-    - title: Gusto nako mureport ug problema. (REPORT)
-      subtitle: Aduna bay problema sa imong payout? O kulang ang gihatag?
-      button_title: Sekretong mureport
-      redirect_to: report
+    # - title: Kanus-a ang sunod nga payout? (PAYOUT)
+    #   subtitle: Pwede nakong estemahon ang sunod mong payout.
+    #   button_title: Kanus-a akong payout?
+    #   redirect_to: payout
 
     - title: I-rekord ang petsa sa payout. (DATE)
       subtitle: Bag-o lang ba nagpayout? Sultii ko!
       button_title: I-rekord petsa sa payout
       redirect_to: date
+
+    - title: Gusto nako mureport ug problema. (REPORT)
+      subtitle: Aduna bay problema sa imong payout? O kulang ang gihatag?
+      button_title: Sekretong mureport
+      redirect_to: report
 
     - title: Tabangi ko ug kalkula sa akong payout. (CALC)
       subtitle: Kalkulahon imong payout, ug ang mga kondisyon nga dapat himuon.
