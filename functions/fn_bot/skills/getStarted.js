@@ -125,7 +125,18 @@ module.exports = (controller, scripts) => {
       ];
 
       convo.addQuestion('{{vars.threads.phone_number}}', handlerQ2, {}, 'default');
-      convo.addMessage('{{vars.threads.thanks}}.', 'default');
+      // convo.addMessage('{{vars.threads.thanks}}', 'default');
+
+      convo.addMessage({
+        text: '{{vars.threads.thanks}}',
+        quick_replies: [
+          {
+            content_type: "text",
+            title: 'MENU',
+            payload: 'menu'
+          }
+        ],
+      }, null, {}, 'default');
 
 	    convo.setVar('first_name', message.user_profile.first_name);
 	    convo.activate();
