@@ -8,147 +8,117 @@ const { DEFAULT_EVENT } = require('../const');
 
 module.exports = (controller, scripts) => {
   const commonScript = controller.commonScript.introduction;
-  let language = null;
-  let phoneNumber = null;
 
-	controller.hears(['getStarted', 'HELLO', 'hello'], DEFAULT_EVENT, (bot, message) => {
+	controller.hears(['getStarted', 'Get Started', 'hello', 'HELLO'], DEFAULT_EVENT, (bot, message) => {
+		bot.createConversation(message, function(err, convo) {
+      const userPropertiesToSave = {
+        phone_number: '',
+        language: ''
+      };
 
-    if (message.user_profile.language) {
-      console.warn('getStarted triggered, when langauge was already set.');
-    }
+			// create the validation_error thread
+			convo.addMessage('This is a validation error.', 'validation_error');
+			convo.addMessage('I am sorry, your data is wrong!', 'validation_error');
+			convo.addMessage(commonScript.intro, 'default');
 
-	  // start the get started conversation
-	  bot.startConversation(message, (err,convo) => {
-	    convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
-	    const question = {
+      const question = {
 	      text: commonScript.question_1.text,
 	      quick_replies: formatRepliesForOptions(commonScript.question_1.options)
 	    };
 
-	    const handlerQ1 = [
-	      {
-	        pattern: 'tgl',
-	        callback: function(response,convo) {
-	          language = 'tgl';
-	          convo.gotoThread(language);
-	        }
-	      },
-	      {
-	        pattern: 'ceb',
-	        callback: function(response,convo) {
-	          language = 'ceb';
-	          convo.gotoThread(language);
-	        }
-	      },
-	      {
-	        pattern: 'eng',
-	        callback: function(response,convo) {
-	          language = 'eng';
-	          convo.gotoThread(language);
-	        }
-	      },
-	      {
-	        default: true,
-	        callback: function(response, convo) {
-	          if (shouldSkipResponse(response)) {
-	            return;
-	          }
+      //handle text
+      const handlerQ1 = ['tgl', 'ceb', 'eng'].map(language => {
+        return {
+          pattern: language,
+          callback: (response, convo) => {
+            convo.setVar('threads', commonScript.threads[language]);
+            message.user_profile.language = language;
+            return saveUserProperties(controller, message.user_profile)
+            .then(() => convo.next());
 
-	          if (response.quick_reply && response.quick_reply.payload) {
-	            language = response.quick_reply.payload;
-	            return convo.gotoThread(language);
-	          }
+            return convo.next();
+          }
+        };
+      });
 
-	          //TODO: silentRepeat doesn't seem able to repeat endlessly
-	          convo.repeat();
-	          convo.next();
-	        }
-	      }
-	    ];
+      //Handle quick replies
+      handlerQ1.push({
+        default: true,
+        callback: function(response, convo) {
+          if (shouldSkipResponse(response)) {
+            return;
+          }
+
+          if (response.quick_reply && response.quick_reply.payload) {
+            const language = response.quick_reply.payload;
+            convo.setVar('threads', commonScript.threads[language]);
+
+            message.user_profile.language = language;
+            return saveUserProperties(controller, message.user_profile)
+            .then(() => convo.next());
+          }
+
+          //workaround for silentRepeat ending convo. Ref: https://github.com/howdyai/botkit/issues/318
+          bot.reply(convo.source_message, commonScript.question_1.error);
+          convo.silentRepeat();
+        }
+      });
+
+
+
 	    convo.addQuestion(question, handlerQ1, {}, 'default');
+      convo.addMessage('{{vars.threads.progress}}.', 'default');
 
-	    //Build a separate thread for each langauge.
-	    Object.keys(commonScript.threads).forEach(key => {
-	      // convo.addQuestion(commonScript.threads[key].progress, (response, convo) => convo.gotoThread(key + '_number'), {}, key);
+      let numberQuestionFailCount = 0;
 
-	      const question2 = {
-	        text: commonScript.threads[key].phone_number
-	      };
+      const handlerQ2 = [
+        {
+          pattern: /skip/,
+          callback: (response, convo) => convo.next(),
+        },
+        {
+          default: true,
+          callback: function(response, convo) {
+            if (shouldSkipResponse(response)) {
+              return;
+            }
 
-	      const handlerQ2 = [
-	        {
-	          default: true,
-	          callback: function(response, convo) {
-	            if (shouldSkipResponse(response)) {
-	              return;
-	            }
+            //if user doesn't say skip, but fails 2 times, then skip
+            //otherwise try and parse number
+              // if fails, repeat and try again. increment the fail count
 
-	            // Parse number with country code. - for now assume Philippines
-	            let phoneNumber = null;
-	            try {
-                let rawNumber = response.text.replace(/\b0/g, '+63');
-                if (response.text.toLowerCase().indexOf('skip') > -1) {
-                  console.warn("user didn't provide number");
-                  //just set a dummy number
-                  rawNumber = '+63404404404';
-                }
+            let rawNumber = response.text.replace(/\b0/g, '+63');
+            try {
+              const phoneNumber = phoneUtil.parse(rawNumber, 'PHL');
+              message.user_profile.phone_number = phoneUtil.format(phoneNumber, PNF.INTERNATIONAL);
 
-	              phoneNumber = phoneUtil.parse(rawNumber, 'PHL');
-	              console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
-	            } catch (err) {
-                console.error("ERROR parsing phone number: ", response.text);
-	              // convo.sayFirst(commonScript.threads[key].phone_number_error);
-								// convo.next();
+            } catch (err) {
+              console.error("ERROR parsing phone number: ", response.text);
+              numberQuestionFailCount += 1;
 
-	              // convo.repeat();
-	              // convo.next();
-								//TODO: For some reson, convo.repeat() first goes to the menu, and then repeats the question.
-								//This is a quick fix for now, but we will need to resolve it later.
-								convo.gotoThread(key + '_error');
+              if (numberQuestionFailCount >= 2) {
+                return convo.next();
+              }
 
-								return;
-	            }
+              //Can't use templates with this workaround
+              const errorMessage = commonScript.threads[message.user_profile.language].phone_number_error;
+              bot.reply(convo.source_message, errorMessage);
 
-	            message.user_profile.phone_number = phoneUtil.format(phoneNumber, PNF.INTERNATIONAL);
-	            message.user_profile.language = key;
-	            return saveUserProperties(controller, message.user_profile)
-	            .then(() => convo.next());
-	          }
-	        }
-	      ];
+              return convo.silentRepeat();
+            }
 
-				const handlerQ2_error = [
-					{
-						default: true,
-						callback: (response, convo) => {
-							if (shouldSkipResponse(response)) {
-	              return;
-	            }
+            return saveUserProperties(controller, message.user_profile)
+            .then(() => convo.next());
+          }
+        }
+      ];
 
-							return convo.gotoThread(key + '_number');
-						}
-					}
-				];
+      convo.addQuestion('{{vars.threads.phone_number}}', handlerQ2, {}, 'default');
+      convo.addMessage('{{vars.threads.thanks}}.', 'default');
 
-	      convo.addQuestion(question2, handlerQ2, {}, key);
-        convo.addMessage({
-          text: commonScript.threads[key].phone_number_error,
-          action: key + '_number',
-        },key + '_error');
-				// convo.addQuestion(commonScript.threads[key].phone_number_error, handlerQ2_error, {}, key + '_error');
+	    convo.setVar('first_name', message.user_profile.first_name);
+	    convo.activate();
+		});
 
-	      convo.addQuestion({
-	        text: commonScript.threads[key].thanks,
-	        quick_replies: [
-	          {
-	            content_type: "text",
-	            title: commonScript.threads[key].quick_reply_title,
-	            payload: commonScript.threads[key].redirect_to
-	          }
-	        ],
-	      }, null, {}, key);
-	    });
-	  });
 	});
-
-};
+}

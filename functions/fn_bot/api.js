@@ -44,10 +44,8 @@ module.exports = {
 
 	/**
 	 * payload:
-	 * language
-	 * phone_number
-	 * lat
-	 * lng
+	 * 	language
+	 * 	phone_number
 	 */
 	saveUserProperties: (controller, payload) => {
 		return new Promise(function(resolve, reject) {
