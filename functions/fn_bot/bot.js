@@ -70,9 +70,17 @@ controller.hears('.*', 'message_received', (bot, message) => {
 
     const commonScript = controller.commonScript.introduction;
 	  // start a conversation to handle this response.
-	  return bot.startConversation(message, (err,convo) => {
-	    convo.say(commonScript.intro.replace('__first_name__', message.user_profile.first_name));
+	  return bot.createConversation(message, (err,convo) => {
+      convo.addMessage(commonScript.intro, 'default');
       convo.say(commonScript.intro_hi);
+
+      let firstName = "";
+      if (message.user_profile && message.user_profile.first_name) {
+        firstName = message.user_profile.first_name;
+      }
+
+      convo.setVar('first_name', firstName);
+      convo.activate();
     });
 	}
 
@@ -87,7 +95,6 @@ controller.hears('.*', 'message_received', (bot, message) => {
       }
     };
     convo.addMessage(menuMessage);
-
   });
 });
 
