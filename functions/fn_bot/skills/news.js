@@ -1,10 +1,13 @@
 const api = require('../api');
-const { scriptForLanguage } = require('../util');
+const { logEvent, scriptForLanguage } = require('../util');
 const { generateButtonsForTemplate } = require('../format');
-const { DEFAULT_EVENT } = require('../const');
+const { CONVO_END, CONVO_START, DEFAULT_EVENT } = require('../const');
+
 
 module.exports = (controller, scripts) => {
   controller.hears(scripts.eng.news.trigger, DEFAULT_EVENT, (bot, message) => {
+    logEvent({code: CONVO_START});
+
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     //TODO: get user language
@@ -26,6 +29,10 @@ module.exports = (controller, scripts) => {
           }
         };
         convo.addMessage(menuMessage);
+
+        convo.on('end', () => {
+          logEvent({code: CONVO_END});
+        })
       });
     });
   });

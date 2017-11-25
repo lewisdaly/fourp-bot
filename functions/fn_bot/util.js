@@ -20,7 +20,18 @@ const shouldSkipResponse = (response) => {
 	return true;
 }
 
+/**
+ * Using this call will allow us to create and consume consistent logs
+ */
+const logEvent = ({code, message}) => {
+	console.log(JSON.stringify({
+		code,
+		message
+	}));
+}
+
 module.exports = {
+	logEvent,
   scriptForLanguage,
 	shouldSkipResponse,
 }
