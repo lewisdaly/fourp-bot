@@ -10,7 +10,6 @@ module.exports = (controller, scripts) => {
 
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
-    //TODO: get user language
     return api.getNewsForLanguage(message.user_profile.language)
     .then(news => {
       bot.startConversation(message, (err, convo) => {

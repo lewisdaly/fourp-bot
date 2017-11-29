@@ -52,3 +52,12 @@ curl -X POST \
 ## Webhook url:
 
 https://us-central1-fourp-bot.cloudfunctions.net/bot/facebook/receive
+
+
+## To deploy:
+
+firebase deploy
+
+### Deploying to production
+firebase use default
+firebase deploy
