@@ -28,6 +28,10 @@ menu:
       button_title: Make a secret report
       redirect_to: report
 
+    - title: Talk to 4PBot! (TALK)
+      subtitle: Just want to talk to 4PBot? Go ahead, we're listning.
+      button_title: Let's Talk!
+      redirect_to: talk
 
     - title: Help me calculate my payout. (CALC)
       subtitle: Calculate your payout, and what conditions you need to meet.
@@ -43,6 +47,16 @@ menu:
       subtitle: Have I been helpful at all? Let me know.
       button_title: Leave feedback
       redirect_to: feedback
+
+talk:
+  intro: Let's talk! Go ahead, I'm listening.
+  #TODO:
+  done: Done?
+  continue: Let's keep talking
+  response_1: Ok
+  response_2: Hmm
+  response_3: That's interesting...
+  end: Thanks for sharing!
 
 payout:
   trigger:
