@@ -1,7 +1,7 @@
 const { formatRepliesForOptions, generateButtonsForTemplate } = require('../format');
 const { saveUserProperties } = require('../api');
 const { getRandomElement, logEvent, nextHandler, scriptForLanguage, shouldSkipResponse } = require('../util');
-const { CONVO_END, CONVO_START, DEFAULT_EVENT } = require('../const');
+const { CONVO_END, CONVO_START, CONVO_TIMEOUT, DEFAULT_EVENT } = require('../const');
 
 module.exports = (controller, scripts) => {
   controller.hears(['talk'], DEFAULT_EVENT, (bot, message) => {
@@ -10,7 +10,7 @@ module.exports = (controller, scripts) => {
     const script = scriptForLanguage(scripts, message.user_profile.language);
 
     bot.createConversation(message, (err, convo) => {
-      convo.setTimeout(1000 * 60 * 5); //5 minutes
+      convo.setTimeout(1000 * 60 * 2); //2 minutes
 
       const endOrContinueMessage = {
         text: script.talk.keep_talking,
