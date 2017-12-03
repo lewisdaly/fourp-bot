@@ -50,12 +50,13 @@ menu:
 
 talk:
   intro: Let's talk! Go ahead, I'm listening.
-  #TODO:
+  keep_talking: Ok
   done: Done?
   continue: Let's keep talking
-  response_1: Ok
-  response_2: Hmm
-  response_3: That's interesting...
+  responses:
+    - Ok
+    - Hmm
+    - That's interesting...
   end: Thanks for sharing!
 
 payout:

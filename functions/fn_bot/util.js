@@ -1,4 +1,8 @@
 
+const getRandomElement = (array) => {
+	return array[Math.floor(Math.random()*array.length)];
+}
+
 const scriptForLanguage = (script, language) => {
 	if (!language) {
 		console.error("ERROR: language is not set for user.");
@@ -30,8 +34,21 @@ const logEvent = ({code, message}) => {
 	}));
 }
 
+/**
+ * A default handler that just calls convo.next() after a response
+ */
+const nextHandler = (response, convo) => {
+	if (shouldSkipResponse(response)) {
+		return;
+	}
+
+	return convo.next();
+}
+
 module.exports = {
+	getRandomElement,
 	logEvent,
+	nextHandler,
   scriptForLanguage,
 	shouldSkipResponse,
 }

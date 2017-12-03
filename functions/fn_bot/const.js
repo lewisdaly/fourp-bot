@@ -4,4 +4,5 @@ module.exports = {
   //for logging events
   CONVO_START: 'CONVO_START',
   CONVO_END: 'CONVO_END',
+  CONVO_TIMEOUT: 'CONVO_TIMEOUT'
 };
