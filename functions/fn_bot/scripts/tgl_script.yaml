@@ -23,9 +23,9 @@ menu:
       button_title: Sekretong magreport
       redirect_to: report
 
-    - title: Talk to 4PBot! (TALK)
-      subtitle: Just want to talk to 4PBot? Go ahead, we're listning.
-      button_title: Let's Talk!
+    - title: Makipag-usap kay 4PBot! (TALK)
+      subtitle: Gusto mo ba makipag-usap kay 4PBot? Sige, nakikinig ako.
+      button_title: Usap Tayo!
       redirect_to: talk
 
     - title: Tulungan akong kalkulahin ang aking payout. (CALC)
@@ -44,15 +44,14 @@ menu:
       redirect_to: feedback
 
 talk:
-  intro: Let's talk! Go ahead, I'm listening.
+  intro: Usap tayo! Sige, nakikinig ako.
   keep_talking: Ok
-  done: Done?
-  continue: Let's keep talking
+  done: Ganun, ano pa po?
   responses:
     - Ok
     - Hmm
-    - That's interesting...
-  end: Thanks for sharing!
+    - Ganun po ba...
+  end: Salamat po sa pagsabi samin!
 
 payout:
   trigger:

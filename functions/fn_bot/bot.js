@@ -8,6 +8,8 @@ const fs   = require('fs');
 const { scriptForLanguage } = require('./util');
 const { generateButtonsForTemplate } = require('./format');
 const {
+  bcrm_token,
+  bcrm_bot,
   verify_token,
   page_access_token,
   studio_token,
@@ -38,7 +40,18 @@ const fbuser = FBUser({
     expire: 7 * 24 * 60 * 60 * 1000, // refresh profile info every week
     storage
 });
+
+/**
+ * Register Middleware
+ */
 controller.middleware.receive.use(fbuser.receive);
+require('botkit-middleware-bcrm')({
+    bcrm_token,
+    bcrm_bot,
+    controller
+});
+
+
 
 const app = require(__dirname + '/components/express_webserver.js')(controller);
 require(__dirname + '/components/subscribe_events.js')(controller);

@@ -14,26 +14,16 @@ module.exports = (functions) => {
 			envFilename = '.env_production';
 	}
 
-  let verify_token = null;
-  let page_access_token = null;
-  let studio_token = null;
-  let studio_command_uri = null;
-  let firebase_uri = null;
-
   env(__dirname + '/.env_common');
 	env(__dirname + '/' + envFilename);
 
-  verify_token = process.env.verify_token;
-  page_access_token = process.env.page_access_token;
-  studio_token = process.env.studio_token;
-  studio_command_uri = process.env.studio_command_uri;
-  firebase_uri = process.env.firebase_uri;
-
   return {
-    verify_token,
-    page_access_token,
-    studio_token,
-    studio_command_uri,
-    firebase_uri
+    bcrm_token: process.env.bcrm_token,
+    bcrm_bot: process.env.bcrm_bot,
+    verify_token: process.env.verify_token,
+    page_access_token: process.env.page_access_token,
+    studio_token: process.env.studio_token,
+    studio_command_uri: process.env.studio_command_uri,
+    firebase_uri: process.env.firebase_uri,
   };
 }
