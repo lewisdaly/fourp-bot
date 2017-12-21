@@ -61,3 +61,6 @@ cat logs/conversations_start | grep "textPayload" | wc -l
 #get the number of conversations ended:
 cat logs/conversations_end | grep "textPayload" | wc -l
 ```
+
+Conversations started in Dec:
+cat logs/conversations_start | grep "receiveTimestamp\": \"2017-12" | wc -l
