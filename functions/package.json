@@ -12,7 +12,7 @@
     "express-validation": "^1.0.2",
     "firebase": "^4.6.2",
     "firebase-admin": "^5.4.2",
-    "firebase-functions": "^0.7.1",
+    "firebase-functions": "^0.8.1",
     "google-libphonenumber": "^3.0.6",
     "joi": "^11.3.4",
     "js-yaml": "^3.10.0",

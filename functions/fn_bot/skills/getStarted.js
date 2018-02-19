@@ -84,7 +84,7 @@ module.exports = (controller, scripts) => {
 
       const handlerQ2 = [
         {
-          pattern: /skip/,
+          pattern: /skip/i,
           callback: (response, convo) => convo.next(),
         },
         {
